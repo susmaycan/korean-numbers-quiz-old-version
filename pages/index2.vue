@@ -1,19 +1,18 @@
 <template>
-  <box>
-    <Filters @applyFilters="navigateToNextPage" />
-    <Written />
-    <div class="button-list">
-      <Button @click="onCheckResults">
-        {{ $t('check_results') | capitalize }}
-      </Button>
-      <Button v-if="!showResults" @click="toggleShowResults">
-        {{ $t('reveal_results') | capitalize }}
-      </Button>
-      <Button v-if="showResults" @click="toggleShowResults">
-        {{ $t('hide_results') | capitalize }}
-      </Button>
-    </div>
-  </box>
+  <container>
+    <Header />
+    <Filters @applyFilters="restartQuizz" />
+    <Results :show-results="showResults" />
+    <Button @click="onCheckResults">
+      {{ $t('check_results') | capitalize }}
+    </Button>
+    <Button v-if="!showResults" @click="toggleShowResults">
+      {{ $t('reveal_results') | capitalize }}
+    </Button>
+    <Button v-if="showResults" @click="toggleShowResults">
+      {{ $t('hide_results') | capitalize }}
+    </Button>
+  </container>
 </template>
 
 <script>
@@ -22,11 +21,22 @@ import { removeSpaces } from '@/utils/functions'
 
 export default {
   name: 'Main',
+  data () {
+    return {
+      showResults: false
+    }
+  },
   computed: {
-    ...mapState('numbers', ['max', 'list'])
+    ...mapState('numbers', ['type', 'list', 'max'])
+  },
+  mounted () {
+    this.generateRandomNumbers()
   },
   methods: {
-    navigateToNextPage () {
+    toggleShowResults () {
+      this.showResults = !this.showResults
+    },
+    generateRandomNumbers () {
       for (let i = 0; i < 10; i++) {
         const randomNumber = Math.floor(Math.random() * (this.max + 1))
         if (randomNumber > 0 && this.list.findIndex(element => element.number === randomNumber) === -1) {
@@ -61,10 +71,25 @@ export default {
 }
 </script>
 
-<style scoped>
-.button-list {
-  display: flex;
-  justify-content: center;
-  align-content: center;
+<style>
+:root {
+  --primary-color: #20A599 ;
+  --primary-color-light: #2ad6c8;
+  --primary-color-dark: #136962;
+  --disabled-color: #adadad ;
+  --danger-color: #fa3434be ;
+  --success-color: #63ff4fbe ;
+  --text-color-dark: #333;
+  --text-color-white: #fff;
+  --font-size-text: 15px;
+  --font-size-title: 32px;
+  --font-family-text: Arial, Helvetica, sans-serif;
+  --font-family-title: Arial, Helvetica, sans-serif;
+}
+
+html {
+  font-family: var(--font-family-text);
+  color: var(--text-color-dark);
+  font-size: var(--font-size-text);
 }
 </style>

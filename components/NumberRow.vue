@@ -1,49 +1,30 @@
 <template>
-  <div class="column is-half-desktop is-full-mobile">
-    <div class="columns is-vcentered is-mobile">
-      <div class="column is-2-desktop is-3-mobile">
-        <b-tag type="is-primary" size="is-medium">
-          {{ number.number }}
-        </b-tag>
-      </div>
-      <div class="column is-4-mobile is-5-mobile">
-        <Input :value="inputData" placeholder="enter number" :type="type" @on-change="onChangeNumber" />
-      </div>
-      <div class="column is-6-desktop is-4-mobile">
-        <span v-if="showResults">{{ number.result }}</span>
-      </div>
-    </div>
-  </div>
+  <!-- <div class="number-row-container">
+    <span class="number-row-label">
+      {{ number.number }}
+    </span> -->
+  <Input
+    :tabindex="index"
+    :value="inputData"
+    placeholder="enter number"
+    :error="number.error"
+    :success="number.success"
+    :message-info="showResults ? number.result : null"
+    @change="onChangeNumber"
+  />
+  <!-- </div> -->
 </template>
 
 <script>
 export default {
   props: {
     number: Object,
-    showResults: Boolean
+    showResults: Boolean,
+    index: Number
   },
   data () {
     return {
       inputData: ''
-    }
-  },
-  computed: {
-    type () {
-      if (this.number.error) {
-        return 'is-danger'
-      }
-      if (this.number.success) {
-        return 'is-success'
-      }
-      return ''
-    }
-  },
-  watch: {
-    number: {
-      handler () {
-        console.log('number changes')
-      },
-      deep: true
     }
   },
   mounted () {
@@ -57,3 +38,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.number-row-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+.number-row-label {
+  font-weight: bold;
+  margin-right: 1em;
+}
+</style>

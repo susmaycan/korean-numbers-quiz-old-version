@@ -1,5 +1,5 @@
 <template>
-  <div :class="show ? 'modal is-active' : 'modal'">
+  <!-- <div :class="show ? 'modal is-active' : 'modal'">
     <div class="modal-background" />
     <div class="modal-card">
       <header class="modal-card-head">
@@ -30,6 +30,9 @@
         </button>
       </footer>
     </div>
+  </div> -->
+  <div>
+    Empty table
   </div>
 </template>
 

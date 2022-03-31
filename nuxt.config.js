@@ -25,6 +25,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/filters.plugin.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -38,10 +39,23 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    'nuxt-buefy'
+    '@nuxtjs/i18n'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  i18n: {
+    locales: [
+      { code: 'EUes', name: 'Español (ES)', file: 'es.js' },
+      { code: 'EUen', name: 'English (UK)', file: 'en.js' },
+      { code: 'KRko', name: '한국어', file: 'kr.js' }
+    ],
+    defaultLocale: 'EUes',
+    langDir: '~/locales/',
+    skipSettingLocaleOnNavigate: true,
+    strategy: 'no_prefix'
   }
+
 }
