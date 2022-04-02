@@ -3,8 +3,8 @@
     <label
       v-for="element in group"
       :key="element"
+      class="radio-input-label"
     >
-      <span class="checkmark" />
       <input
         v-model="dataValue"
         type="radio"
@@ -45,16 +45,21 @@ export default {
 </script>
 
 <style scoped>
-.input-custom {
+.custom-input {
   font-family: var(--font-family-text);
   color: var(--text-color-dark);
   font-size: var(--font-size-text);
   padding: 1em;
   margin: .5em 0;
-  border: 1px solid rgb(211, 211, 211);
-  border-radius: 10px;
 }
 .radio-input-group {
   margin: .5em 0;
+  max-width: 100%;
+  margin: 0 auto;
 }
+
+.radio-input-label {
+  margin: 0 .5em;
+}
+
 </style>

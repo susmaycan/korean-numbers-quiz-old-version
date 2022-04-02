@@ -99,3 +99,8 @@ export const CHINESE_NUMBERS = {
   5: '십',
   6: '백'
 }
+
+export const QUIZZ_TYPE = {
+  WRITTEN: 'written',
+  LISTENING: 'listening'
+}

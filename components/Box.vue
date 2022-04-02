@@ -29,8 +29,17 @@ export default {
 .box-container {
   padding: 2em;
   border-radius: 1em;
+  max-width: 80%;
+  margin: 2em auto;
 }
+
 .shadow {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+@media (max-width: 756px) {
+  .box-container {
+    max-width: 95%;
+  }
 }
 </style>

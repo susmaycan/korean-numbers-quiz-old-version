@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  name: 'CustomButton',
   methods: {
     onClick () {
       this.$emit('click')
@@ -20,8 +21,8 @@ export default {
   }
   .custom-button {
     border: none;
-    padding: .5em 1em;
-    margin: .5em 0;
+    padding: 1em 1em;
+    margin: .5em .5em;
     text-align: center;
     transition: 0.5s;
     background-size: 200% auto;

@@ -1,61 +1,76 @@
 <template>
-  <box>
-    <Filters @applyFilters="navigateToNextPage" />
-    <Written />
-    <div class="button-list">
-      <Button @click="onCheckResults">
-        {{ $t('check_results') | capitalize }}
-      </Button>
-      <Button v-if="!showResults" @click="toggleShowResults">
-        {{ $t('reveal_results') | capitalize }}
-      </Button>
-      <Button v-if="showResults" @click="toggleShowResults">
-        {{ $t('hide_results') | capitalize }}
-      </Button>
+  <div>
+    <div class="main-content">
+      <filters @applyFilters="restartQuizz" />
+      <separator v-if="isMobileScreenSize" />
+      <results />
     </div>
-  </box>
+    <div v-if="list.length > 0" class="button-list">
+      <custom-button :disabled="showResults" @click="onCheckResults">
+        {{ $t('check_results') | capitalize }} <fa icon="check" />
+      </custom-button>
+      <custom-button @click="clearResults">
+        {{ $t('clear_results') | capitalize }} <fa icon="broom" />
+      </custom-button>
+      <custom-button v-if="!showResults" @click="toggleShowResults">
+        {{ $t('reveal_results') | capitalize }} <fa icon="eye" />
+      </custom-button>
+      <custom-button v-if="showResults" @click="toggleShowResults">
+        {{ $t('hide_results') | capitalize }} <fa icon="eye-slash" />
+      </custom-button>
+    </div>
+    <custom-modal
+      modal-name="win"
+      :title="$t('win_title') | capitalize"
+      :width="500"
+      :height="250"
+      @on-accept="restartQuizz"
+    >
+      {{ $t('win_message') }}
+    </custom-modal>
+  </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { removeSpaces } from '@/utils/functions'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'Main',
   computed: {
-    ...mapState('numbers', ['max', 'list'])
+    ...mapState('numbers', ['max', 'list', 'userResults', 'showResults'])
   },
   methods: {
-    navigateToNextPage () {
-      for (let i = 0; i < 10; i++) {
-        const randomNumber = Math.floor(Math.random() * (this.max + 1))
-        if (randomNumber > 0 && this.list.findIndex(element => element.number === randomNumber) === -1) {
-          this.$store.commit('numbers/addNumber', randomNumber)
-        }
-      }
-    },
+    ...mapMutations('numbers', ['toggleShowResults', 'addNumber', 'reset', 'updateResult', 'toggleShowResults', 'clearUserResults']),
     onCheckResults () {
       let allSuccess = true
-      this.list.forEach((element) => {
-        const isCorrect = element.userInput ? removeSpaces(element.userInput) === removeSpaces(element.result) : false
+      this.list.forEach((element, index) => {
+        const userResult = this.userResults[index]
+        const isCorrect = userResult.userInput ? this.removeSpaces(userResult.userInput) === this.removeSpaces(element.result) : false
         if (!isCorrect) {
           allSuccess = false
         }
-        this.$store.commit('numbers/update', { ...element, error: !isCorrect, success: isCorrect })
+        this.updateResult({ ...userResult, error: !isCorrect, success: isCorrect })
+        this.updateResult({ ...userResult, error: !isCorrect, success: isCorrect })
       })
 
       if (allSuccess) {
-        this.$buefy.dialog.confirm({
-          message: 'You got all the answers correct. Congrats!',
-          cancelText: 'Close window',
-          confirmText: 'Restart quizz',
-          onConfirm: () => this.restartQuizz()
-        })
+        this.$modal.show('win')
       }
     },
     restartQuizz () {
-      this.$store.commit('numbers/reset')
+      this.reset()
       this.generateRandomNumbers()
+    },
+    clearResults () {
+      this.clearUserResults()
+    },
+    generateRandomNumbers () {
+      for (let i = 0; i < 10; i++) {
+        const randomNumber = Math.floor(Math.random() * (this.max + 1))
+        if (randomNumber > 0 && this.list.findIndex(element => element.number === randomNumber) === -1) {
+          this.addNumber(randomNumber)
+        }
+      }
     }
   }
 }
@@ -66,5 +81,16 @@ export default {
   display: flex;
   justify-content: center;
   align-content: center;
+}
+.main-content {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+}
+@media (max-width: 1200px) {
+  .main-content {
+    flex-direction: column;
+  }
 }
 </style>

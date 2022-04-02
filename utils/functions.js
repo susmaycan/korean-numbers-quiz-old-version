@@ -63,7 +63,3 @@ export const getChineseNumber = (number) => {
 
   return output.trim()
 }
-
-export const removeSpaces = (str) => {
-  return str.replace(/ /g, '')
-}

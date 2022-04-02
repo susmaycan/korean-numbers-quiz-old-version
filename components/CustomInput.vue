@@ -1,14 +1,18 @@
 <template>
-  <!-- <div class="input-container">
-    <input v-bind="$attrs" :class="inputClass" @input="onInput" @change="onChange">
-    <span v-if="messageInfo" class="input-info-message">
-      {{ messageInfo }}
-    </span>
-    <span v-if="messageError" class="input-error-message">
+  <div class="input-container">
+    <input
+      :disabled="success"
+      v-bind="$attrs"
+      :class="inputClass"
+      @input="onInput"
+      @change="onChange"
+    >
+    <fa v-if="error || messageError" class="input-icon input-icon-error" icon="circle-xmark" />
+    <fa v-if="success" class="input-icon input-icon-success" icon="circle-check" />
+    <p v-if="messageError" class="input-error-message">
       {{ messageError }}
-    </span>
-  </div> -->
-  <input v-bind="$attrs" :class="inputClass" @input="onInput" @change="onChange">
+    </p>
+  </div>
 </template>
 
 <script>
@@ -44,6 +48,17 @@ export default {
         baseClass += ' input-success'
       }
       return baseClass
+    },
+    iconClass () {
+      let baseClass = 'input-icon'
+      if (this.messageError || this.error) {
+        baseClass += ' input-icon-error'
+      }
+
+      if (this.success) {
+        baseClass += ' input-icon-success'
+      }
+      return baseClass
     }
   },
   methods: {
@@ -71,9 +86,20 @@ export default {
   border: 1px solid rgb(211, 211, 211);
   border-radius: 10px;
 }
+
+.input-custom:focus {
+  outline: none;
+  border: 3px solid var(--primary-color-dark)
+}
+
 .input-error {
   color: var(--danger-color);
   border: 1px solid var(--danger-color)
+}
+
+.input-error:focus {
+  outline: none;
+  border: 3px solid var(--danger-color)
 }
 
 .input-success {
@@ -81,15 +107,27 @@ export default {
   border: 1px solid var(--success-color)
 }
 
+.input-success:focus {
+  outline: none;
+  border: 3px solid var(--success-color)
+}
+
 .input-error-message {
   padding-top: .25em;
   margin-top: 0;
   color: var(--danger-color);
-  }
+}
 
-  .input-info-message {
-  padding-top: .25em;
-  margin-top: 0;
-  /* color: var(--danger-color); */
-  }
+.input-icon {
+  margin-left: -2em;
+}
+
+.input-icon-error {
+  color: var(--danger-color);
+}
+
+.input-icon-success {
+  color: var(--success-color);
+}
+
 </style>

@@ -12,7 +12,7 @@ export default {
 
 <style scoped>
   .container {
-    padding: 10px;
-    margin: 2em;
+    padding: 0 2em;
+    margin: 0 2em;
   }
 </style>

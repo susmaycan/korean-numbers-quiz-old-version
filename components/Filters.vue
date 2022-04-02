@@ -1,36 +1,50 @@
 <template>
-  <box :shadow="false">
-    <div class="radio-container">
-      <radio-input-group
-        :group="numberTypes"
-        :value="selectedType"
-        @input="onTypeChanges"
+  <container>
+    <div class="filter-container">
+      <h2>{{ $t('number_type') | capitalize }}:</h2>
+      <div class="radio-container">
+        <radio-input-group
+          :group="numberTypes"
+          :value="selectedType"
+          @input="onTypeChanges"
+        />
+      </div>
+      <h2>{{ $t('quizz_type') | capitalize }}:</h2>
+      <div class="radio-container">
+        <radio-input-group
+          :group="quizzTypes"
+          :value="selectedQuizz"
+          @input="onQuizzTypeChanges"
+        />
+      </div>
+      <h2>{{ $t('max_value') | capitalize }}:</h2>
+      <custom-input
+        v-model.number="selectedMax"
+        type="number"
+        :label="$t('max_number_placeholder')"
+        :state="inputState"
+        :placeholder="placeholder"
+        :message-error="errorMessage"
+        @input="onMaxChanges"
       />
+      <custom-button :disabled="!isDataValid" @click="onClickFilter">
+        {{ $t('generate_quizz') | capitalize }}  <fa icon="bolt" />
+      </custom-button>
     </div>
-    <Input
-      v-model.number="selectedMax"
-      type="number"
-      :label="$t('max_number_placeholder')"
-      :state="inputState"
-      :placeholder="placeholder"
-      :message-error="errorMessage"
-      @input="onMaxChanges"
-    />
-    <Button :disabled="!isDataValid" @click="onClickFilter">
-      {{ $t('apply') | capitalize }}
-    </Button>
-  </box>
+  </container>
 </template>
 
 <script>
-import { NUMBER_TYPES, MAX_NUMBERS } from '@/utils/constants'
+import { NUMBER_TYPES, MAX_NUMBERS, QUIZZ_TYPE } from '@/utils/constants'
 
 export default {
   data () {
     return {
       numberTypes: NUMBER_TYPES,
+      quizzTypes: QUIZZ_TYPE,
       selectedType: this.$store.state.numbers.type,
-      selectedMax: this.$store.state.numbers.max
+      selectedMax: this.$store.state.numbers.max,
+      selectedQuizz: QUIZZ_TYPE.WRITTEN
     }
   },
   computed: {
@@ -57,15 +71,15 @@ export default {
     },
     errorMessage () {
       if (this.isChineseMaxInvalid) {
-        return 'Chinese maximum number must be between 1 and ' + MAX_NUMBERS[NUMBER_TYPES.CHINESE]
+        return this.$t('chinese_max_number_out_range') + MAX_NUMBERS[NUMBER_TYPES.CHINESE]
       }
 
       if (this.isKoreanMaxInvalid) {
-        return 'Korean maximum number must be between 1 and ' + MAX_NUMBERS[NUMBER_TYPES.KOREAN]
+        return this.$t('korean_max_number_out_range') + MAX_NUMBERS[NUMBER_TYPES.KOREAN]
       }
 
       if (!this.selectedMax) {
-        return 'Maximum value is required'
+        return this.$t('max_number_required')
       }
 
       return null
@@ -75,6 +89,7 @@ export default {
     onClickFilter () {
       this.$store.commit('numbers/setType', this.selectedType)
       this.$store.commit('numbers/setMax', this.selectedMax)
+      this.$store.commit('numbers/setQuizzType', this.selectedQuizz)
       this.$emit('applyFilters')
     },
     onMaxChanges (newValue) {
@@ -82,6 +97,9 @@ export default {
     },
     onTypeChanges (newValue) {
       this.selectedType = newValue
+    },
+    onQuizzTypeChanges (newValue) {
+      this.selectedQuizz = newValue
     }
   }
 }
@@ -93,8 +111,7 @@ export default {
 }
 
 .filter-container {
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding: 2em;
-  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
 }
 </style>

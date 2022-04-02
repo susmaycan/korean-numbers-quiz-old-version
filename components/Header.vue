@@ -1,37 +1,34 @@
 <template>
   <div class="header-container">
-    <h1>
+    <h1 class="title">
       {{ $t('app_title') }}
     </h1>
-    <Button
-      @click="toggleInfoModal"
+    <custom-button
+      @click="showSheets"
     >
-      {{ $t('sheet') }}
-    </button>
+      <fa icon="book" /> {{ $t('sheet') | capitalize }}
+    </custom-button>
+    <custom-modal modal-name="sheets" :title="$t('numbers_sheet') | capitalize" :width="500" :height="700" :display-button-actions="false">
+      <sheet />
+    </custom-modal>
   </div>
-  <!-- <Sheet
-      :show="isSheetModalOpen"
-      @close="toggleInfoModal"
-    /> -->
 </template>
 
 <script>
 export default {
   name: 'Header',
-  data () {
-    return {
-      isSheetModalOpen: false
-    }
-  },
   methods: {
-    toggleInfoModal () {
-      this.isSheetModalOpen = !this.isSheetModalOpen
+    showSheets () {
+      this.$modal.show('sheets')
     }
   }
 }
 </script>
 
 <style scoped>
+.title {
+  margin-right: 1em;
+}
 .header-container {
   display: flex;
   flex-direction: row;
