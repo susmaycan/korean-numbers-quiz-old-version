@@ -1,5 +1,5 @@
 export default {
-  app_title: 'Korean Numbers Quiz',
+  app_title: 'Korean Numbers Quizz',
   sheet: 'sheet',
   generate_quizz: 'generate quizz',
   check_results: 'check answers',

@@ -1,6 +1,6 @@
 <template>
   <box>
-    <Header />
+    <custom-header />
     <separator />
     <Nuxt />
   </box>
@@ -14,9 +14,9 @@ export default {
 
 <style>
 :root {
-  --primary-color: #20A599 ;
-  --primary-color-light: #2ad6c8;
-  --primary-color-dark: #136962;
+  --primary-color: #c13659 ;
+  --primary-color-light: #a546b8;
+  --primary-color-dark: #603579;
   --disabled-color: #adadad ;
   --danger-color: #fa3434be ;
   --success-color: #338828be ;

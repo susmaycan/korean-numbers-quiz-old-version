@@ -4,18 +4,19 @@
       <span v-if="quizzType === quizzTypes.WRITTEN" class="number-row-label">
         {{ number.number }}
       </span>
-      <fa class="icon" icon="volume-high" @click="speak" />
+      <fa :class="quizzType === quizzTypes.WRITTEN ? 'icon icon-written' : 'icon'" icon="volume-high" @click="speak" />
       <custom-input
         :value="inputData"
-        :placeholder="$t('enter_number')"
+        :type="isWrittenQuizzType ? 'text' : 'number'"
+        :placeholder="placeholder"
         :error="userResult.error"
         :success="userResult.success"
-        :message-info="showResults ? number.result : null"
         @change="onChangeNumber"
+        @focus="onFocus"
       />
     </div>
     <p v-if="showResults && !userResult.success" class="result-message">
-      <fa icon="pen-clip" /> {{ number.result }}
+      <fa icon="pen-clip" /> {{ messageInfo }}
     </p>
   </div>
 </template>
@@ -35,7 +36,7 @@ export default {
     return {
       inputData: '',
       synth: window.speechSynthesis,
-      greetingSpeech: new window.SpeechSynthesisUtterance(),
+      numberSpeech: new window.SpeechSynthesisUtterance(),
       quizzTypes: QUIZZ_TYPE
     }
   },
@@ -43,6 +44,12 @@ export default {
     ...mapState('numbers', ['userResults', 'showResults', 'quizzType']),
     userResult () {
       return this.userResults.find(item => item.number === this.number.number)
+    },
+    placeholder () {
+      return this.isWrittenQuizzType ? '하나/일...' : '1543...'
+    },
+    messageInfo () {
+      return this.isWrittenQuizzType ? this.number.result : this.number.number.toString()
     }
   },
   updated () {
@@ -51,14 +58,21 @@ export default {
   methods: {
     ...mapMutations('numbers', ['updateResult']),
     onChangeNumber (value) {
-      this.inputData = value
+      this.inputData = this.isWrittenQuizzType ? value : parseInt(value)
       this.updateResult({ ...this.userResult, userInput: this.inputData })
     },
     speak () {
-      this.greetingSpeech.text = `${this.number.result}`
-      const koreanVoice = this.synth.getVoices().find(voice => voice.voiceURI === 'Yuna')
-      this.greetingSpeech.voice = koreanVoice
-      this.synth.speak(this.greetingSpeech)
+      this.synth.cancel()
+      this.numberSpeech.text = `${this.number.result}`
+      const koreanVoice = this.synth.getVoices().find(voice => voice.lang === 'ko-KR')
+      this.numberSpeech.voice = koreanVoice
+      this.numberSpeech.rate = 0.75
+      this.synth.speak(this.numberSpeech)
+    },
+    onFocus () {
+      if (this.isListeningQuizzType) {
+        this.speak()
+      }
     }
   }
 }
@@ -81,9 +95,12 @@ export default {
 }
 
 .icon {
-  color: var(--disabled-color);
   cursor: pointer;
   margin-right: 1em;
+}
+
+.icon-written {
+  color: var(--disabled-color);
 }
 
 .result-message {

@@ -35,7 +35,9 @@ export const mutations = {
   },
   setType (state, type) {
     state.type = type
-    state.max = MAX_NUMBERS[type]
+    if (state.max > MAX_NUMBERS[state.type]) {
+      state.max = MAX_NUMBERS[state.type]
+    }
   },
   setQuizzType (state, quizzType) {
     state.quizzType = quizzType
@@ -44,7 +46,11 @@ export const mutations = {
     state.showResults = !state.showResults
   },
   setMax (state, max) {
-    state.max = max
+    let maximum = max
+    if (maximum > MAX_NUMBERS[state.type]) {
+      maximum = MAX_NUMBERS[state.type]
+    }
+    state.max = maximum
   },
   clearUserResults (state) {
     state.showResults = false

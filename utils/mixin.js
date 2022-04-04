@@ -1,3 +1,5 @@
+import { QUIZZ_TYPE } from '@/utils/constants'
+
 export default {
   data () {
     return {
@@ -14,6 +16,14 @@ export default {
     },
     removeSpaces (str) {
       return str.replace(/ /g, '')
+    }
+  },
+  computed: {
+    isWrittenQuizzType () {
+      return this.quizzType === QUIZZ_TYPE.WRITTEN
+    },
+    isListeningQuizzType () {
+      return this.quizzType === QUIZZ_TYPE.LISTENING
     }
   }
 }

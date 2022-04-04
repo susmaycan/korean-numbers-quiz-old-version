@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'Header',
+  name: 'CustomHeader',
   methods: {
     showSheets () {
       this.$modal.show('sheets')

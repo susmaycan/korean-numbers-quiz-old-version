@@ -37,17 +37,30 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'Main',
   computed: {
-    ...mapState('numbers', ['max', 'list', 'userResults', 'showResults'])
+    ...mapState('numbers', ['max', 'list', 'userResults', 'showResults', 'quizzType'])
+  },
+  mounted () {
+    this.restartQuizz()
   },
   methods: {
     ...mapMutations('numbers', ['toggleShowResults', 'addNumber', 'reset', 'updateResult', 'toggleShowResults', 'clearUserResults']),
     onCheckResults () {
       let allSuccess = true
+      let isCorrect = true
       this.list.forEach((element, index) => {
         const userResult = this.userResults[index]
-        const isCorrect = userResult.userInput ? this.removeSpaces(userResult.userInput) === this.removeSpaces(element.result) : false
-        if (!isCorrect) {
+        if (!userResult.userInput) {
           allSuccess = false
+          isCorrect = false
+        } else {
+          if (this.isWrittenQuizzType) {
+            isCorrect = this.removeSpaces(element.result) === this.removeSpaces(userResult.userInput)
+          } else {
+            isCorrect = element.number === userResult.userInput
+          }
+          if (!isCorrect) {
+            allSuccess = false
+          }
         }
         this.updateResult({ ...userResult, error: !isCorrect, success: isCorrect })
         this.updateResult({ ...userResult, error: !isCorrect, success: isCorrect })
