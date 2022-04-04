@@ -1,128 +1,96 @@
 <template>
-  <div class="container main-page">
-    <div class="level">
-      <h1 class="title">
-        한구어 quiz
-      </h1>
-      <b-button
-        type="is-primary"
-        outlined
-        size="is-big"
-        icon-left="information"
-        @click="toggleInfoModal"
-      >
-        Sheet
-      </b-button>
+  <div>
+    <div class="main-content">
+      <filters @applyFilters="restartQuizz" />
+      <separator v-if="isMobileScreenSize" />
+      <results />
     </div>
-    <div class="block box">
-      <b-radio
-        v-for="numberType in numberTypes"
-        :key="numberType"
-        v-model="selectedType"
-        :name="numberType"
-        :native-value="numberType"
-      >
-        {{ numberType }}
-      </b-radio>
-      <b-field label="Enter max number:">
-        <b-numberinput v-model="max" placeholder="99" :min="1" :max="selectedType === numberTypes.CHINESE ? 999999 : 99" />
-      </b-field>
-      <Button :on-click="restartQuizz" title="Apply" />
+    <div v-if="list.length > 0" class="button-list">
+      <custom-button :disabled="showResults" @click="onCheckResults">
+        {{ $t('check_results') | capitalize }} <fa icon="check" />
+      </custom-button>
+      <custom-button @click="clearResults">
+        {{ $t('clear_results') | capitalize }} <fa icon="broom" />
+      </custom-button>
+      <custom-button v-if="!showResults" @click="toggleShowResults">
+        {{ $t('reveal_results') | capitalize }} <fa icon="eye" />
+      </custom-button>
+      <custom-button v-if="showResults" @click="toggleShowResults">
+        {{ $t('hide_results') | capitalize }} <fa icon="eye-slash" />
+      </custom-button>
     </div>
-    <div class="box block">
-      <div class="columns is-mobile is-multiline">
-        <NumberRow
-          v-for="(number, index) in list"
-          :key="number.number+index"
-          :number="number"
-          :show-results="showResults"
-        />
-      </div>
-      <Button :on-click="onCheckResults" title="Check Results" />
-      <Button v-if="!showResults" :on-click="toggleShowResults" title="Reveal results" />
-      <Button v-if="showResults" :on-click="toggleShowResults" title="Hide results" />
-    </div>
-    <Sheet
-      :show="isSheetModalOpen"
-      @close="toggleInfoModal"
-    />
+    <custom-modal
+      modal-name="win"
+      :title="$t('win_title') | capitalize"
+      :width="500"
+      :height="250"
+      @on-accept="restartQuizz"
+    >
+      {{ $t('win_message') }}
+    </custom-modal>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { NUMBER_TYPES } from '@/utils/constants'
-import { removeSpaces } from '@/utils/functions'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
-  data () {
-    return {
-      showResults: false,
-      numberTypes: NUMBER_TYPES,
-      selectedType: this.$store.state.numbers.type,
-      max: this.setMax(),
-      isSheetModalOpen: false
-    }
-  },
+  name: 'Main',
   computed: {
-    ...mapState('numbers', ['type']),
-    ...mapState('numbers', ['list'])
-  },
-  watch: {
-    selectedType () {
-      this.$store.commit('numbers/setType', this.selectedType)
-      this.max = this.setMax()
-    }
-  },
-  mounted () {
-    this.generateRandomNumbers()
+    ...mapState('numbers', ['max', 'list', 'userResults', 'showResults'])
   },
   methods: {
-    toggleShowResults () {
-      this.showResults = !this.showResults
+    ...mapMutations('numbers', ['toggleShowResults', 'addNumber', 'reset', 'updateResult', 'toggleShowResults', 'clearUserResults']),
+    onCheckResults () {
+      let allSuccess = true
+      this.list.forEach((element, index) => {
+        const userResult = this.userResults[index]
+        const isCorrect = userResult.userInput ? this.removeSpaces(userResult.userInput) === this.removeSpaces(element.result) : false
+        if (!isCorrect) {
+          allSuccess = false
+        }
+        this.updateResult({ ...userResult, error: !isCorrect, success: isCorrect })
+        this.updateResult({ ...userResult, error: !isCorrect, success: isCorrect })
+      })
+
+      if (allSuccess) {
+        this.$modal.show('win')
+      }
+    },
+    restartQuizz () {
+      this.reset()
+      this.generateRandomNumbers()
+    },
+    clearResults () {
+      this.clearUserResults()
     },
     generateRandomNumbers () {
       for (let i = 0; i < 10; i++) {
         const randomNumber = Math.floor(Math.random() * (this.max + 1))
         if (randomNumber > 0 && this.list.findIndex(element => element.number === randomNumber) === -1) {
-          this.$store.commit('numbers/addNumber', randomNumber)
+          this.addNumber(randomNumber)
         }
       }
-    },
-    onCheckResults () {
-      let allSuccess = true
-      this.list.forEach((element) => {
-        const isCorrect = element.userInput ? removeSpaces(element.userInput) === removeSpaces(element.result) : false
-        if (!isCorrect) {
-          allSuccess = false
-        }
-        this.$store.commit('numbers/update', { ...element, error: !isCorrect, success: isCorrect })
-      })
-
-      if (allSuccess) {
-        this.$buefy.dialog.confirm({
-          message: 'You got all the answers correct. Congrats!',
-          cancelText: 'Close window',
-          confirmText: 'Restart quizz',
-          onConfirm: () => this.restartQuizz()
-        })
-      }
-    },
-    restartQuizz () {
-      this.$store.commit('numbers/reset')
-      this.generateRandomNumbers()
-    },
-    setMax () {
-      return this.$store.state.numbers.type === NUMBER_TYPES.CHINESE ? 1000 : 99
-    },
-    toggleInfoModal () {
-      this.isSheetModalOpen = !this.isSheetModalOpen
     }
   }
 }
 </script>
+
 <style scoped>
-.main-page {
-  margin: 2em;
+.button-list {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.main-content {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+}
+@media (max-width: 1200px) {
+  .main-content {
+    flex-direction: column;
+  }
 }
 </style>

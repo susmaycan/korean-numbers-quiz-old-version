@@ -1,34 +1,15 @@
 <template>
-  <div :class="show ? 'modal is-active' : 'modal'">
-    <div class="modal-background" />
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">
-          Numbers sheet
-        </p>
-        <button class="delete" aria-label="close" @click="closeModal" />
-      </header>
-      <section class="modal-card-body">
-        <div class="columns">
-          <div class="column is-half is-full-mobile">
-            <h2 class="subtitle">
-              Chinese
-            </h2>
-            <b-table :data="dataChinese" :columns="columns" />
-          </div>
-          <div class="column is-half is-full-mobile">
-            <h2 class="subtitle">
-              Korean
-            </h2>
-            <b-table :data="dataKorean" :columns="columns" />
-          </div>
-        </div>
-      </section>
-      <footer class="modal-card-foot">
-        <button class="button" @click="closeModal">
-          Close
-        </button>
-      </footer>
+  <div class="sheet-container">
+    <div v-for="column in columns" :key="column.title" class="sheet-item">
+      <h3>
+        {{ column.title | capitalize }}
+      </h3>
+      <table class="sheet-table">
+        <tr v-for="item in column.data" :key="item.number">
+          <td>{{ item.number }}</td>
+          <td>{{ item.text }}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
@@ -41,34 +22,48 @@ const koreanNumbersMapped = Object.entries(KOREAN_NUMBERS_DISPLAYED).map(([key, 
 const chineseNumbersMapped = Object.entries(CHINESE_NUMBERS_DISPLAYED).map(([key, value]) => ({ number: key, text: value }))
 
 export default {
-  props: {
-    show: {
-      default: false,
-      type: Boolean
-    }
-  },
   data () {
     return {
       columns: [
         {
-          field: 'number',
-          label: 'Number',
-          numeric: true,
-          width: 5
+          title: this.$t('chinese'),
+          data: chineseNumbersMapped
         },
         {
-          field: 'text',
-          label: 'Text'
+          title: this.$t('korean'),
+          data: koreanNumbersMapped
         }
-      ],
-      dataKorean: koreanNumbersMapped,
-      dataChinese: chineseNumbersMapped
-    }
-  },
-  methods: {
-    closeModal () {
-      this.$emit('close')
+      ]
     }
   }
 }
 </script>
+
+<style scoped>
+.sheet-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  height: 500px;
+  overflow-y: scroll;
+}
+.sheet-item {
+  padding: .5em;
+}
+
+.sheet-table {
+  border: .5px solid var(--primary-color-light);
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: var(--primary-color-light);
+}
+</style>

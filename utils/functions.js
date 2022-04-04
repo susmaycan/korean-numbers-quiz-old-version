@@ -14,43 +14,40 @@ function reverseString (str) {
   return str.split('').reverse().join('')
 }
 
-export const getKoreanNumber = (number, useAbbreviated = false) => {
-  if (!number || number === 0) { return '-' }
-  if (number > 99) {
-    return 'Error! Only numbers < 100 exist in the Korean system.'
-  }
+export const getKoreanNumber = (number) => {
+  if (!number || number === 0 || number > 99) { return '-' }
 
-  const numberAsStringReversed = reverseString(number.toString())
-
+  const reversedNumber = reverseString(number.toString())
+  const units = reversedNumber.charAt(0)
+  const tens = reversedNumber.charAt(1)
   let output = ''
 
-  output = KOREAN_NUMBERS[0][useAbbreviated ? 'abbreviated' : 'normal'][numberAsStringReversed.charAt(0)] + output
+  // First we set the units
+  output = KOREAN_NUMBERS.units[units]
 
-  if (numberAsStringReversed.charAt(1)) {
-    output = KOREAN_NUMBERS[1][numberAsStringReversed.charAt(1)] + output
+  // Then we set the tens
+  if (tens) {
+    output = KOREAN_NUMBERS.tens[tens] + output
   }
 
   return output
 }
 
 export const getChineseNumber = (number) => {
-  if (!number || number === 0) { return '-' }
-  if (number > 999999999999999 || number < 1) {
-    return 'Only numbers between 1 and 999999999999999 supported.'
-  }
+  if (!number || number === 0 || number > 999999999999999 || number < 1) { return '-' }
 
   const numberAsStringReversed = reverseString(number.toString())
 
   let output = ''
 
-  const currentChar = numberAsStringReversed.charAt(0)
+  const firstChar = numberAsStringReversed.charAt(0)
 
-  output = (currentChar > 0 ? CHINESE_NUMBERS[0][currentChar] : '') + output
+  output = (firstChar > 0 ? CHINESE_NUMBERS[0][firstChar] : '') + output
 
   for (let i = 1; i < numberAsStringReversed.length; i++) {
     const currentChar = numberAsStringReversed.charAt(i)
 
-    const isBreakPoint = [4, 8, 12, 16].includes(i)
+    const isBreakPoint = i === 4
 
     if (isBreakPoint) {
       output = ' ' + output
@@ -60,13 +57,9 @@ export const getChineseNumber = (number) => {
 
     output = new10XPart + output
 
-    const new10XMultiplierPart = (currentChar > 1 || ([8, 12, 16].includes(i) && (numberAsStringReversed.length - 1 === i)) || (isBreakPoint && nextFourDigitsHaveNonZero(i, numberAsStringReversed))) ? CHINESE_NUMBERS[0][currentChar] : ''
+    const new10XMultiplierPart = (currentChar > 1 || (isBreakPoint && nextFourDigitsHaveNonZero(i, numberAsStringReversed))) ? CHINESE_NUMBERS[0][currentChar] : ''
     output = new10XMultiplierPart + output
   }
 
   return output.trim()
-}
-
-export const removeSpaces = (str) => {
-  return str.replace(/ /g, '')
 }

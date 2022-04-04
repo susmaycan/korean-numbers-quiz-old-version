@@ -1,30 +1,53 @@
-import { NUMBER_TYPES, NUMBER_FUNCTIONS } from '@/utils/constants'
+import { NUMBER_TYPES, NUMBER_FUNCTIONS, MAX_NUMBERS, QUIZZ_TYPE } from '@/utils/constants'
 
 export const state = () => ({
   list: [],
-  type: NUMBER_TYPES.CHINESE
+  userResults: [],
+  max: MAX_NUMBERS[NUMBER_TYPES.CHINESE],
+  type: NUMBER_TYPES.CHINESE,
+  quizzType: QUIZZ_TYPE.WRITTEN,
+  showResults: false
 })
 
 export const mutations = {
   addNumber (state, number) {
     state.list.push({
       number,
+      result: NUMBER_FUNCTIONS[state.type](number)
+    })
+    state.userResults.push({
+      number,
       userInput: null,
-      result: NUMBER_FUNCTIONS[state.type](number),
       error: false,
       success: false
     })
   },
-  update (state, payload) {
-    const index = state.list.findIndex(item => item.number === payload.number)
+  updateResult (state, payload) {
+    const index = state.userResults.findIndex(item => item.number === payload.number)
     if (index !== -1) {
-      state.list.splice(index, 1, payload)
+      state.userResults.splice(index, 1, payload)
     }
   },
   reset (state) {
     state.list = []
+    state.userResults = []
+    state.showResults = false
   },
   setType (state, type) {
     state.type = type
+    state.max = MAX_NUMBERS[type]
+  },
+  setQuizzType (state, quizzType) {
+    state.quizzType = quizzType
+  },
+  toggleShowResults (state) {
+    state.showResults = !state.showResults
+  },
+  setMax (state, max) {
+    state.max = max
+  },
+  clearUserResults (state) {
+    state.showResults = false
+    state.userResults = state.userResults.map(number => ({ ...number, userInput: null, error: false, success: false }))
   }
 }

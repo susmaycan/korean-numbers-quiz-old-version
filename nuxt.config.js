@@ -25,6 +25,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/filters.plugin.js',
+    '~plugins/modal.plugin.js',
+    '~plugins/mixin.plugin.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -33,15 +36,58 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/fontawesome'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    'nuxt-buefy'
+    '@nuxtjs/i18n'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  i18n: {
+    locales: [
+      { code: 'EUes', name: 'Español (ES)', file: 'es.js' },
+      { code: 'EUen', name: 'English (UK)', file: 'en.js' },
+      { code: 'KRko', name: '한국어', file: 'kr.js' }
+    ],
+    defaultLocale: 'EUes',
+    langDir: '~/locales/',
+    skipSettingLocaleOnNavigate: true,
+    strategy: 'no_prefix'
+  },
+
+  googleFonts: {
+    families: {
+      'Nanum+Pen+Script': [400, 700],
+      'Nanum+Gothic': [400, 700],
+      Raleway: [100, 400, 700]
+    }
+  },
+
+  fontawesome: {
+    component: 'fa',
+    icons: {
+      solid: [
+        'faCircleCheck',
+        'faCircleXmark',
+        'faTimes',
+        'faBook',
+        'faBolt',
+        'faEye',
+        'faEyeSlash',
+        'faCheck',
+        'faBroom',
+        'faPenClip',
+        'faXmark',
+        'faVolumeHigh'
+      ]
+    }
   }
+
 }

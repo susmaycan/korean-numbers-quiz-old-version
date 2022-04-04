@@ -5,6 +5,11 @@ export const NUMBER_TYPES = {
   CHINESE: 'chinese'
 }
 
+export const MAX_NUMBERS = {
+  [NUMBER_TYPES.KOREAN]: 99,
+  [NUMBER_TYPES.CHINESE]: 99999
+}
+
 export const NUMBER_FUNCTIONS = {
   [NUMBER_TYPES.KOREAN]: getKoreanNumber,
   [NUMBER_TYPES.CHINESE]: getChineseNumber
@@ -49,33 +54,19 @@ export const CHINESE_NUMBERS_DISPLAYED = {
 }
 
 export const KOREAN_NUMBERS = {
-  0: {
-    normal: {
-      0: '',
-      1: '하나',
-      2: '둘',
-      3: '셋',
-      4: '넷',
-      5: '다섯',
-      6: '여섯',
-      7: '일곱',
-      8: '여덟',
-      9: '아홉'
-    },
-    abbreviated: {
-      0: '',
-      1: '한',
-      2: '두',
-      3: '세',
-      4: '네',
-      5: '다섯',
-      6: '여섯',
-      7: '일곱',
-      8: '여덟',
-      9: '아홉'
-    }
+  units: {
+    0: '',
+    1: '하나',
+    2: '둘',
+    3: '셋',
+    4: '넷',
+    5: '다섯',
+    6: '여섯',
+    7: '일곱',
+    8: '여덟',
+    9: '아홉'
   },
-  1: {
+  tens: {
     1: '열',
     2: '스물',
     3: '서른',
@@ -106,18 +97,10 @@ export const CHINESE_NUMBERS = {
   3: '천',
   4: '만',
   5: '십',
-  6: '백',
-  7: '천',
-  8: '억',
-  9: '십',
-  10: '백',
-  11: '천',
-  12: '조',
-  13: '십',
-  14: '백',
-  15: '천',
-  16: '경',
-  17: '십',
-  18: '백',
-  19: '천'
+  6: '백'
+}
+
+export const QUIZZ_TYPE = {
+  WRITTEN: 'written',
+  LISTENING: 'listening'
 }
