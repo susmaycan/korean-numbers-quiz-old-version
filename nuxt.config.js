@@ -86,7 +86,10 @@ export default {
         'faBroom',
         'faPenClip',
         'faXmark',
-        'faVolumeHigh'
+        'faVolumeHigh',
+        'faCopyright',
+        'faArrowUpRightFromSquare',
+        'faLanguage'
       ]
     }
   }

@@ -23,5 +23,6 @@ export default {
   max_number_required: 'Maximum value is required',
   listening_speed: 'listening voice speed',
   number: 'number',
-  text: 'text'
+  text: 'text',
+  footer_text: 'Website made by Susana Mayo with NuxtJS'
 }
