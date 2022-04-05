@@ -20,18 +20,6 @@
         />
       </div>
       <div class="filter-element">
-        <label class="filter-label" for="voice_speed">{{ $t('listening_speed') | capitalize }}:</label>
-        <slider
-          id="voice_speed"
-          :value="voiceSpeed"
-          :disabled="!isListeningQuizzType"
-          :max="2"
-          :min="0.5"
-          :step="0.1"
-          @change="onVoiceSpeedChanges"
-        />
-      </div>
-      <div class="filter-element">
         <label class="filter-label" for="max_value">{{ $t('max_value') | capitalize }}:</label>
         <custom-input
           id="max_value"
@@ -60,8 +48,7 @@ export default {
     return {
       numberTypes: NUMBER_TYPES,
       quizzTypes: QUIZZ_TYPE,
-      selectedMax: this.$store.state.numbers.max,
-      voiceSpeed: this.$store.state.numbers.voiceSpeed
+      selectedMax: this.$store.state.numbers.max
     }
   },
   computed: {
@@ -136,9 +123,6 @@ export default {
       if (!this.errorMessage) {
         this.generateNewQuizz()
       }
-    },
-    onVoiceSpeedChanges (newValue) {
-      this.setVoiceSpeed(newValue)
     }
   }
 }

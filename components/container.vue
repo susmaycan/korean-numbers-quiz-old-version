@@ -12,8 +12,8 @@ export default {
 
 <style scoped>
 .container {
-  padding: 0 2em;
-  margin: 0 2em;
+  padding: 0 1em;
+  margin: 0 1em;
 }
 
 @media (max-width: 756px) {

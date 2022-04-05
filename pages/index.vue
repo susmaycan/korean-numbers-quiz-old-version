@@ -110,10 +110,10 @@ export default {
   padding: 1em;
 }
 .filters {
-  width: 30%;
+  width: 25%;
 }
 .results {
-  width: 70%;
+  width: 75%;
 }
 @media (max-width: 1200px) {
   .main-content {

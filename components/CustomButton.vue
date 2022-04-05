@@ -36,7 +36,6 @@ export default {
     border-radius: 10px;
     display: block;
     cursor: pointer;
-    /* font-size: var(--font-size-text); */
     font-family: var(--font-family-text);
   }
 
@@ -48,7 +47,7 @@ export default {
 
   .custom-button:disabled {
     cursor: not-allowed;
-    background: var(--disabled-color);
+    background: var(--disabled-color) !important;
   }
 
 </style>
