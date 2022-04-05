@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="main-content">
-      <filters @applyFilters="restartQuizz" />
+      <separator v-if="isMobileScreenSize" />
+      <div class="filters">
+        <filters @applyFilters="restartQuizz" />
+      </div>
       <separator v-if="isMobileScreenSize" />
       <results />
     </div>
@@ -23,7 +26,7 @@
       modal-name="win"
       :title="$t('win_title') | capitalize"
       :width="500"
-      :height="250"
+      :height="isMobileScreenSize ? 220 : 200"
       @on-accept="restartQuizz"
     >
       {{ $t('win_message') }}
@@ -71,6 +74,7 @@ export default {
       }
     },
     restartQuizz () {
+      this.setLoading(true)
       this.reset()
       this.generateRandomNumbers()
     },
@@ -78,12 +82,13 @@ export default {
       this.clearUserResults()
     },
     generateRandomNumbers () {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 12; i++) {
         const randomNumber = Math.floor(Math.random() * (this.max + 1))
         if (randomNumber > 0 && this.list.findIndex(element => element.number === randomNumber) === -1) {
           this.addNumber(randomNumber)
         }
       }
+      setTimeout(() => this.setLoading(false), 400)
     }
   }
 }
@@ -99,11 +104,22 @@ export default {
   display: flex;
   text-align: center;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  padding: 1em;
+}
+.filters {
+  width: 50%;
 }
 @media (max-width: 1200px) {
   .main-content {
     flex-direction: column;
+  }
+  .button-list {
+    flex-direction: column;
+  }
+  .filters {
+    width: 100%;
+    padding: .5em 1em;
   }
 }
 </style>

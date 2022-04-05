@@ -6,7 +6,8 @@ export const state = () => ({
   max: MAX_NUMBERS[NUMBER_TYPES.CHINESE],
   type: NUMBER_TYPES.CHINESE,
   quizzType: QUIZZ_TYPE.WRITTEN,
-  showResults: false
+  showResults: false,
+  voiceSpeed: 0.7
 })
 
 export const mutations = {
@@ -55,5 +56,8 @@ export const mutations = {
   clearUserResults (state) {
     state.showResults = false
     state.userResults = state.userResults.map(number => ({ ...number, userInput: null, error: false, success: false }))
+  },
+  setVoiceSpeed (state, voiceSpeed) {
+    state.voiceSpeed = voiceSpeed
   }
 }

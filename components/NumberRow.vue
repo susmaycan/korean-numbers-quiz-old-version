@@ -66,7 +66,7 @@ export default {
       this.numberSpeech.text = `${this.number.result}`
       const koreanVoice = this.synth.getVoices().find(voice => voice.lang === 'ko-KR')
       this.numberSpeech.voice = koreanVoice
-      this.numberSpeech.rate = 0.75
+      this.numberSpeech.rate = this.voiceSpeed
       this.synth.speak(this.numberSpeech)
     },
     onFocus () {
@@ -86,12 +86,13 @@ export default {
 .number-row-content {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 .number-row-label {
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   margin-right: .2em;
+  font-size: var(--font-size-label);
 }
 
 .icon {
@@ -107,6 +108,15 @@ export default {
   padding: 0;
   margin: 0;
   color: var(--disabled-color);
-  align-self: flex-end;
+  font-size: var(--font-size-small);
+}
+
+@media (max-width: 756px) {
+  .number-row-content {
+    justify-content: center;
+  }
+  .number-row-container {
+    text-align: center;
+  }
 }
 </style>

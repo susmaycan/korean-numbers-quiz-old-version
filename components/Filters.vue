@@ -1,32 +1,49 @@
 <template>
   <container>
     <div class="filter-container">
-      <h2>{{ $t('number_type') | capitalize }}:</h2>
-      <div class="radio-container">
+      <div class="filter-element">
+        <label class="filter-label" for="number_type">{{ $t('number_type') | capitalize }}:</label>
         <radio-input-group
+          id="number_type"
           :group="numberTypes"
           :value="type"
           @input="onTypeChanges"
         />
       </div>
-      <h2>{{ $t('quizz_type') | capitalize }}:</h2>
-      <div class="radio-container">
+      <div class="filter-element">
+        <label class="filter-label" for="quizz_type">{{ $t('quizz_type') | capitalize }}:</label>
         <radio-input-group
+          id="quizz_type"
           :group="quizzTypes"
           :value="quizzType"
           @input="onQuizzTypeChanges"
         />
       </div>
-      <h2>{{ $t('max_value') | capitalize }}:</h2>
-      <custom-input
-        v-model.number="selectedMax"
-        type="number"
-        :label="$t('max_number_placeholder')"
-        :state="inputState"
-        :placeholder="placeholder"
-        :message-error="errorMessage"
-        @change="onMaxChanges"
-      />
+      <div class="filter-element">
+        <label class="filter-label" for="voice_speed">{{ $t('listening_speed') | capitalize }}:</label>
+        <slider
+          id="voice_speed"
+          :value="voiceSpeed"
+          :disabled="!isListeningQuizzType"
+          :max="2"
+          :min="0.5"
+          :step="0.1"
+          @change="onVoiceSpeedChanges"
+        />
+      </div>
+      <div class="filter-element">
+        <label class="filter-label" for="max_value">{{ $t('max_value') | capitalize }}:</label>
+        <custom-input
+          id="max_value"
+          v-model.number="selectedMax"
+          type="number"
+          :label="$t('max_number_placeholder')"
+          :state="inputState"
+          :placeholder="placeholder"
+          :message-error="errorMessage"
+          @change="onMaxChanges"
+        />
+      </div>
       <custom-button :disabled="!isDataValid" @click="generateNewQuizz">
         {{ $t('generate_quizz') | capitalize }}  <fa icon="bolt" />
       </custom-button>
@@ -43,7 +60,8 @@ export default {
     return {
       numberTypes: NUMBER_TYPES,
       quizzTypes: QUIZZ_TYPE,
-      selectedMax: this.$store.state.numbers.max
+      selectedMax: this.$store.state.numbers.max,
+      voiceSpeed: this.$store.state.numbers.voiceSpeed
     }
   },
   computed: {
@@ -89,7 +107,11 @@ export default {
     max (newValue) {
       if (this.selectedMax !== newValue) {
         this.selectedMax = newValue
+        this.generateNewQuizz()
       }
+    },
+    voiceSpeed () {
+      this.setVoiceSpeed(this.voiceSpeed)
     }
   },
   methods: {
@@ -114,18 +136,29 @@ export default {
       if (!this.errorMessage) {
         this.generateNewQuizz()
       }
+    },
+    onVoiceSpeedChanges (newValue) {
+      this.setVoiceSpeed(newValue)
     }
   }
 }
 </script>
 <style scoped>
-.radio-container {
+.filter-element {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  padding: .5em 0;
 }
 
 .filter-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+.filter-label {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-label);
 }
 </style>

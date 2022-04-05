@@ -11,8 +11,15 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  padding: 0 2em;
+  margin: 0 2em;
+}
+
+@media (max-width: 756px) {
   .container {
-    padding: 0 2em;
-    margin: 0 2em;
+    padding: .5em;
+    margin: .5em;
   }
+}
 </style>
