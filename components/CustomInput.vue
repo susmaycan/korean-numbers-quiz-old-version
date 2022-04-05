@@ -6,6 +6,7 @@
       :class="inputClass"
       @input="onInput"
       @change="onChange"
+      @focus="onFocus"
     >
     <fa v-if="error || messageError" class="input-icon input-icon-error" icon="circle-xmark" />
     <fa v-if="success" class="input-icon input-icon-success" icon="circle-check" />
@@ -20,10 +21,6 @@
 export default {
   name: 'Input',
   props: {
-    messageInfo: {
-      type: String,
-      default: ''
-    },
     messageError: {
       type: String,
       default: ''
@@ -69,6 +66,10 @@ export default {
     onChange (event) {
       event.preventDefault()
       this.$emit('change', event.target.value)
+    },
+    onFocus (event) {
+      event.preventDefault()
+      this.$emit('focus', event.target.value)
     }
   }
 }
@@ -82,7 +83,7 @@ export default {
   font-family: var(--font-family-text);
   color: var(--text-color-dark);
   font-size: var(--font-size-text);
-  padding: 1em;
+  padding: .7em;
   border: 1px solid rgb(211, 211, 211);
   border-radius: 10px;
 }

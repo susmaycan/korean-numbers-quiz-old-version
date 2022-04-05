@@ -1,5 +1,5 @@
 export default {
-  app_title: 'Korean Numbers Quiz',
+  app_title: 'Korean Numbers Quizz',
   sheet: 'sheet',
   generate_quizz: 'generate quizz',
   check_results: 'check results',
@@ -20,5 +20,9 @@ export default {
   enter_number: 'enter number...',
   chinese_max_number_out_range: 'Chinese maximum number must be between 1 and ',
   korean_max_number_out_range: 'Korean maximum number must be between 1 and ',
-  max_number_required: 'Maximum value is required'
+  max_number_required: 'Maximum value is required',
+  listening_speed: 'listening voice speed',
+  number: 'number',
+  text: 'text',
+  footer_text: 'Website made by Susana Mayo with NuxtJS'
 }

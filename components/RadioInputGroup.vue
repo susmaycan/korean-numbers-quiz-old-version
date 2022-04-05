@@ -1,19 +1,18 @@
 <template>
   <div class="radio-input-group">
-    <label
-      v-for="element in group"
-      :key="element"
-      class="radio-input-label"
+    <v-radio-group
+      v-model="dataValue"
+      row
     >
-      <input
-        v-model="dataValue"
-        type="radio"
+      <v-radio
+        v-for="element in group"
+        :key="element"
+        :label="element | capitalize"
         :value="element"
-        class="custom-input"
-        @input="onInput"
-      >
-      {{ element | capitalize }}
-    </label>
+        :color="color"
+        class="radio-input-label"
+      />
+    </v-radio-group>
   </div>
 </template>
 
@@ -32,7 +31,15 @@ export default {
   },
   data () {
     return {
-      dataValue: this.value
+      dataValue: this.value,
+      color: 'var(--primary-color-light)',
+      trackColor: 'var(--text-color-dark)',
+      thumbColor: 'var(--primary-color-light)'
+    }
+  },
+  watch: {
+    dataValue (newValue) {
+      this.$emit('input', newValue)
     }
   },
   methods: {

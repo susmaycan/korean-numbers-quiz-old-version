@@ -4,12 +4,29 @@
       <h3>
         {{ column.title | capitalize }}
       </h3>
-      <table class="sheet-table">
-        <tr v-for="item in column.data" :key="item.number">
-          <td>{{ item.number }}</td>
-          <td>{{ item.text }}</td>
-        </tr>
-      </table>
+      <v-simple-table>
+        <template #default>
+          <thead>
+            <tr>
+              <th class="text-left">
+                {{ $t('number') | capitalize }}
+              </th>
+              <th class="text-left">
+                {{ $t('text') | capitalize }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="item in column.data"
+              :key="item.number"
+            >
+              <td>{{ item.number }}</td>
+              <td>{{ item.text }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
     </div>
   </div>
 </template>
@@ -58,12 +75,12 @@ export default {
   width: 100%;
 }
 
-td, th {
+/* td, th {
   text-align: left;
   padding: 8px;
 }
 
 tr:nth-child(even) {
   background-color: var(--primary-color-light);
-}
+} */
 </style>

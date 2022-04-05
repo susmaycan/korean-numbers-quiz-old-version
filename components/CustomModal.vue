@@ -75,11 +75,27 @@ export default {
 .modal-container {
   padding: 2em;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
 .modal-button-list {
   margin-top: .5em;
   display: flex;
   justify-content: center;
   align-content: center;
+}
+.modal-content {
+  font-weight: 300;
+}
+.modal-title {
+  padding: 1em;
+}
+
+@media (max-width: 756px) {
+.modal-container {
+  padding: 1em;
+}
 }
 </style>

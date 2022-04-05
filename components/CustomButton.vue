@@ -1,7 +1,12 @@
 <template>
-  <button class="custom-button" @click="onClick">
+  <v-btn
+    :loading="loadingResults"
+    class="custom-button"
+    elevation="5"
+    @click="onClick"
+  >
     <slot />
-  </button>
+  </v-btn>
 </template>
 
 <script>
@@ -31,7 +36,7 @@ export default {
     border-radius: 10px;
     display: block;
     cursor: pointer;
-    font-size: var(--font-size-text);
+    /* font-size: var(--font-size-text); */
     font-family: var(--font-family-text);
   }
 

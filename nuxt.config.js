@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'korean-numbers-quiz',
+    title: 'Korean Numbers Quizz',
     htmlAttrs: {
       lang: 'en'
     },
@@ -38,7 +38,8 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     '@nuxtjs/google-fonts',
-    '@nuxtjs/fontawesome'
+    '@nuxtjs/fontawesome',
+    '@nuxtjs/vuetify'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -85,7 +86,10 @@ export default {
         'faBroom',
         'faPenClip',
         'faXmark',
-        'faVolumeHigh'
+        'faVolumeHigh',
+        'faCopyright',
+        'faArrowUpRightFromSquare',
+        'faLanguage'
       ]
     }
   }

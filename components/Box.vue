@@ -28,9 +28,12 @@ export default {
 <style scoped>
 .box-container {
   padding: 2em;
+  margin: 2em;
   border-radius: 1em;
-  max-width: 80%;
-  margin: 2em auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
 }
 
 .shadow {
@@ -39,7 +42,8 @@ export default {
 
 @media (max-width: 756px) {
   .box-container {
-    max-width: 95%;
+    padding: 0;
+    margin: .5em;
   }
 }
 </style>
