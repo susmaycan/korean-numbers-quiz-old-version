@@ -8,7 +8,7 @@
       </custom-button>
     </div>
     <custom-title>
-      {{ $t('app_title') }}
+      {{ $t('app_title') }} <fa icon="language" />
     </custom-title>
     <custom-modal modal-name="sheets" :title="$t('numbers_sheet') | capitalize" :width="500" :height="700" :display-button-actions="false">
       <sheet />

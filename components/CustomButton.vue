@@ -31,7 +31,7 @@ export default {
     text-align: center;
     transition: 0.5s;
     background-size: 200% auto;
-    color: var(--text-color-white);
+    color: var(--text-color-white) !important;
     box-shadow: 0 0 20px #eee;
     border-radius: 10px;
     display: block;

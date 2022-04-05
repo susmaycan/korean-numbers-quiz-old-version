@@ -6,7 +6,9 @@
         <filters @applyFilters="restartQuizz" />
       </div>
       <separator v-if="isMobileScreenSize" />
-      <results />
+      <div class="results">
+        <results />
+      </div>
     </div>
     <div v-if="list.length > 0" class="button-list">
       <custom-button :disabled="showResults" @click="onCheckResults">
@@ -108,7 +110,10 @@ export default {
   padding: 1em;
 }
 .filters {
-  width: 50%;
+  width: 30%;
+}
+.results {
+  width: 70%;
 }
 @media (max-width: 1200px) {
   .main-content {
@@ -120,6 +125,9 @@ export default {
   .filters {
     width: 100%;
     padding: .5em 1em;
+  }
+  .results {
+    width: 100%;
   }
 }
 </style>
