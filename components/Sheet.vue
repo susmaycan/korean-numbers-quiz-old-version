@@ -62,8 +62,8 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-  height: 500px;
   overflow-y: scroll;
+  height: 400px;
 }
 .sheet-item {
   padding: .5em;

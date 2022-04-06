@@ -84,7 +84,7 @@ export default {
       this.clearUserResults()
     },
     generateRandomNumbers () {
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 10; i++) {
         const randomNumber = Math.floor(Math.random() * (this.max + 1))
         if (randomNumber > 0 && this.list.findIndex(element => element.number === randomNumber) === -1) {
           this.addNumber(randomNumber)
