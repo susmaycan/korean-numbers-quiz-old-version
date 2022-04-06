@@ -31,12 +31,11 @@ export default {
     text-align: center;
     transition: 0.5s;
     background-size: 200% auto;
-    color: var(--text-color-white);
+    color: var(--text-color-white) !important;
     box-shadow: 0 0 20px #eee;
     border-radius: 10px;
     display: block;
     cursor: pointer;
-    /* font-size: var(--font-size-text); */
     font-family: var(--font-family-text);
   }
 
@@ -48,7 +47,7 @@ export default {
 
   .custom-button:disabled {
     cursor: not-allowed;
-    background: var(--disabled-color);
+    background: var(--disabled-color) !important;
   }
 
 </style>

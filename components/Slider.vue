@@ -9,13 +9,7 @@
     :track-color="trackColor"
   >
     <template #append>
-      <v-text-field
-        v-model="sliderModel"
-        class="mt-0 pt-0"
-        hide-details
-        single-line
-        style="width: 60px"
-      />
+      <tag>{{ sliderModel }}</tag>
     </template>
   </v-slider>
 </template>
@@ -32,7 +26,7 @@ export default {
     return {
       sliderModel: 1,
       color: 'var(--primary-color-light)',
-      trackColor: 'var(--text-color-dark)',
+      trackColor: 'var(--disabled-color)',
       thumbColor: 'var(--primary-color-light)'
     }
   },

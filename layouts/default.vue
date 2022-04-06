@@ -51,8 +51,16 @@ html {
 }
 
 .footer {
-  background-color: var(--primary-color) ;
+  background-color: var(--primary-color);
   padding: 2em;
   width: 100%;
+}
+
+a {
+  color: var(--primary-color-dark) !important;
+}
+
+a:visited {
+  color: var(--primary-color-dark) !important;
 }
 </style>

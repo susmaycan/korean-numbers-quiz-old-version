@@ -2,22 +2,23 @@
   <modal
     :name="modalName"
     :adaptive="true"
-    :height="height"
-    :width="width"
+    height="auto"
+    :max-width="width"
+    :scrollable="true"
   >
     <div slot="top-right">
       <button @click="onClose">
         <fa icon="xmark" />
       </button>
     </div>
-    <div class="modal-container">
-      <div class="modal-title">
+    <div class="custom-modal-container">
+      <div class="custom-modal-title">
         <h2>{{ title }}</h2>
       </div>
-      <div class="modal-content">
+      <div class="custom-modal-content">
         <slot />
       </div>
-      <div v-if="displayButtonActions" class="modal-button-list">
+      <div v-if="displayButtonActions" class="custom-modal-button-list">
         <custom-button @click="onClose">
           {{ $t('cancel') | capitalize }}
         </custom-button>
@@ -25,7 +26,7 @@
           {{ $t('accept') | capitalize }}
         </custom-button>
       </div>
-      <div v-else class="modal-button-list">
+      <div v-else class="custom-modal-button-list">
         <custom-button @click="onClose">
           {{ $t('close') | capitalize }}
         </custom-button>
@@ -72,29 +73,28 @@ export default {
 </script>
 
 <style scoped>
-.modal-container {
+.custom-modal-container {
   padding: 2em;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
 }
-.modal-button-list {
+.custom-modal-button-list {
   margin-top: .5em;
   display: flex;
   justify-content: center;
   align-content: center;
 }
-.modal-content {
+.custom-modal-content {
   font-weight: 300;
 }
-.modal-title {
+.custom-modal-title {
   padding: 1em;
 }
 
 @media (max-width: 756px) {
-.modal-container {
+.custom-modal-container {
   padding: 1em;
 }
 }

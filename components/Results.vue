@@ -5,13 +5,26 @@
       type="table-heading, list-item-two-line, list-item-two-line, list-item-two-line, list-item-two-line"
       max-width="1000"
     />
-    <form v-else class="number-list">
-      <number-row
-        v-for="(number, index) in list"
-        :key="`${number.number}-${index}-${Date.now()}`"
-        :number="number"
-      />
-    </form>
+    <div v-else class="number-list-container">
+      <div class="filter-element">
+        <label class="filter-label" for="voice_speed">{{ $t('listening_speed') | capitalize }}:</label>
+        <slider
+          id="voice_speed"
+          :value="voiceSpeed"
+          :max="2"
+          :min="0.5"
+          :step="0.1"
+          @change="onVoiceSpeedChanges"
+        />
+      </div>
+      <div class="number-list">
+        <number-row
+          v-for="(number, index) in list"
+          :key="`${number.number}-${index}-${Date.now()}`"
+          :number="number"
+        />
+      </div>
+    </div>
   </container>
 </template>
 
@@ -20,8 +33,18 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Results',
+  data () {
+    return {
+      voiceSpeed: this.$store.state.numbers.voiceSpeed
+    }
+  },
   computed: {
     ...mapState('numbers', ['list'])
+  },
+  methods: {
+    onVoiceSpeedChanges (newValue) {
+      this.setVoiceSpeed(newValue)
+    }
   }
 }
 </script>
@@ -29,8 +52,13 @@ export default {
 <style scoped>
 .number-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   align-items: center;
+}
+.number-list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media (max-width: 1000px) {

@@ -6,7 +6,9 @@
         <filters @applyFilters="restartQuizz" />
       </div>
       <separator v-if="isMobileScreenSize" />
-      <results />
+      <div class="results">
+        <results />
+      </div>
     </div>
     <div v-if="list.length > 0" class="button-list">
       <custom-button :disabled="showResults" @click="onCheckResults">
@@ -82,7 +84,7 @@ export default {
       this.clearUserResults()
     },
     generateRandomNumbers () {
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 10; i++) {
         const randomNumber = Math.floor(Math.random() * (this.max + 1))
         if (randomNumber > 0 && this.list.findIndex(element => element.number === randomNumber) === -1) {
           this.addNumber(randomNumber)
@@ -108,7 +110,10 @@ export default {
   padding: 1em;
 }
 .filters {
-  width: 50%;
+  width: 25%;
+}
+.results {
+  width: 75%;
 }
 @media (max-width: 1200px) {
   .main-content {
@@ -120,6 +125,9 @@ export default {
   .filters {
     width: 100%;
     padding: .5em 1em;
+  }
+  .results {
+    width: 100%;
   }
 }
 </style>
