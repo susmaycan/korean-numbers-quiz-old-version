@@ -66,27 +66,27 @@ export default {
   margin: 1em 0;
   padding: .5em 1em;
   border-radius: 0%;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
+  border: 2px solid var(--primary-color-light);
+  color: var(--primary-color-light);
   font-family: var(--font-family-text);
   font-size: var(--font-size-text);
   font-weight: var(--font-weight-bold);
 }
 
 .radio-button:hover {
-  background-color: var(--primary-color);
+  background-color: var(--primary-color-light);
   color: var(--text-color-white);
 }
 
 .radio-button-active {
-  background-color: var(--primary-color);
+  background-color: var(--primary-color-light);
   color: var(--text-color-white);
 }
 
 .radio-separator {
-  color: var(--primary-color);
+  color: var(--primary-color-light);
   height: 1px;
-  background-color: var(--primary-color);
+  background-color: var(--primary-color-light);
   border: none;
   width: 40%;
 }
