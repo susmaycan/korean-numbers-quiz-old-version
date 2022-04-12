@@ -1,14 +1,16 @@
 <template>
   <div class="radio-input-group">
     <hr class="radio-separator">
-    <button
-      v-for="element in group"
-      :key="element"
-      :class="radioButtonClass(element)"
-      @click="onClick(element)"
-    >
-      {{ element | capitalize }}
-    </button>
+    <div class="button-group">
+      <button
+        v-for="element in group"
+        :key="element"
+        :class="radioButtonClass(element)"
+        @click="onClick(element)"
+      >
+        {{ element | capitalize }}
+      </button>
+    </div>
     <hr class="radio-separator">
   </div>
 </template>
@@ -60,8 +62,15 @@ export default {
   justify-content: center;
   align-content: center;
   align-items: center;
+  margin: 1em 0;
 }
 
+.button-group {
+   display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
 .radio-button {
   margin: 1em 0;
   padding: .5em 1em;
@@ -89,6 +98,16 @@ export default {
   background-color: var(--primary-color-light);
   border: none;
   width: 40%;
+}
+
+.radio-button:first-child {
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+}
+
+.radio-button:last-child {
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
 }
 
 </style>
