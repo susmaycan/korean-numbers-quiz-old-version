@@ -100,7 +100,41 @@ export const CHINESE_NUMBERS = {
   6: '백'
 }
 
-export const QUIZZ_TYPE = {
+export const QUIZZ_SKILL_TYPE = {
   WRITTEN: 'written',
   LISTENING: 'listening'
+}
+
+export const QUIZZ_TYPE = {
+  NUMBERS: 'numbers',
+  DATES: 'dates'
+}
+
+export const DATE_QUIZZ_TYPES = {
+  DATE: 'date',
+  TIME: 'time'
+}
+
+export const ROW_PLACEHOLDER = {
+  [QUIZZ_TYPE.DATES]: {
+    [DATE_QUIZZ_TYPES.DATE]: {
+      [QUIZZ_SKILL_TYPE.LISTENING]: '02/05/2000',
+      [QUIZZ_SKILL_TYPE.WRITTEN]: '이천년 오월 이일'
+    },
+    [DATE_QUIZZ_TYPES.TIME]: {
+      [QUIZZ_SKILL_TYPE.LISTENING]: '05:10',
+      [QUIZZ_SKILL_TYPE.WRITTEN]: '다섯시 십분'
+    }
+  },
+  [QUIZZ_TYPE.NUMBERS]: {
+    [NUMBER_TYPES.CHINESE]: {
+      [QUIZZ_SKILL_TYPE.LISTENING]: '10300',
+      [QUIZZ_SKILL_TYPE.WRITTEN]: '일만 삼백'
+    },
+    [NUMBER_TYPES.KOREAN]: {
+      [QUIZZ_SKILL_TYPE.LISTENING]: '10',
+      [QUIZZ_SKILL_TYPE.WRITTEN]: '열'
+    }
+  }
+
 }

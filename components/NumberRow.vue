@@ -1,13 +1,13 @@
 <template>
   <div class="number-row-container">
     <div class="number-row-content">
-      <span v-if="quizzType === quizzTypes.WRITTEN" class="number-row-label">
+      <span v-if="isWrittenQuizzType" class="number-row-label">
         {{ number.number }}
       </span>
-      <fa :class="quizzType === quizzTypes.WRITTEN ? 'icon icon-written' : 'icon'" icon="volume-high" @click="speak" />
+      <fa :class="isWrittenQuizzType ? 'icon icon-written' : 'icon'" icon="volume-high" @click="speak" />
       <custom-input
         :value="inputData"
-        :type="isWrittenQuizzType ? 'text' : 'number'"
+        :type="inputType"
         :placeholder="placeholder"
         :error="userResult.error"
         :success="userResult.success"
@@ -22,8 +22,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-import { QUIZZ_TYPE } from '@/utils/constants'
+import { ROW_PLACEHOLDER } from '@/utils/constants'
 
 export default {
   props: {
@@ -36,17 +35,22 @@ export default {
     return {
       inputData: '',
       synth: window.speechSynthesis,
-      numberSpeech: new window.SpeechSynthesisUtterance(),
-      quizzTypes: QUIZZ_TYPE
+      numberSpeech: new window.SpeechSynthesisUtterance()
     }
   },
   computed: {
-    ...mapState('numbers', ['userResults', 'showResults', 'quizzType']),
     userResult () {
       return this.userResults.find(item => item.number === this.number.number)
     },
     placeholder () {
-      return this.isWrittenQuizzType ? '하나/일...' : '1543...'
+      if (this.isNumberQuizzType) {
+        return ROW_PLACEHOLDER[this.quizzType][this.numberType][this.quizzSkillType]
+      } else {
+        return ROW_PLACEHOLDER[this.quizzType][this.dateQuizzType][this.quizzSkillType]
+      }
+    },
+    inputType () {
+      return this.isNumberQuizzType && this.isListeningQuizzType ? 'number' : 'test'
     },
     messageInfo () {
       return this.isWrittenQuizzType ? this.number.result : this.number.number.toString()
@@ -56,9 +60,8 @@ export default {
     this.inputData = this.userResult?.userInput
   },
   methods: {
-    ...mapMutations('numbers', ['updateResult']),
     onChangeNumber (value) {
-      this.inputData = this.isWrittenQuizzType ? value : parseInt(value)
+      this.inputData = this.isListeningQuizzType && this.isNumberQuizzType ? parseInt(value) : value
       this.updateResult({ ...this.userResult, userInput: this.inputData })
     },
     speak () {

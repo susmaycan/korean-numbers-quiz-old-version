@@ -6,17 +6,6 @@
       max-width="1000"
     />
     <div v-else class="number-list-container">
-      <div class="filter-element">
-        <label class="filter-label" for="voice_speed">{{ $t('listening_speed') | capitalize }}:</label>
-        <slider
-          id="voice_speed"
-          :value="voiceSpeed"
-          :max="2"
-          :min="0.5"
-          :step="0.1"
-          @change="onVoiceSpeedChanges"
-        />
-      </div>
       <div class="number-list">
         <number-row
           v-for="(number, index) in list"
@@ -29,23 +18,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 export default {
-  name: 'Results',
-  data () {
-    return {
-      voiceSpeed: this.$store.state.numbers.voiceSpeed
-    }
-  },
-  computed: {
-    ...mapState('numbers', ['list'])
-  },
-  methods: {
-    onVoiceSpeedChanges (newValue) {
-      this.setVoiceSpeed(newValue)
-    }
-  }
+  name: 'Results'
 }
 </script>
 

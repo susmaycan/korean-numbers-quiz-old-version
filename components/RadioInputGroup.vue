@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'Input',
+  name: 'RadioInputGroup',
   props: {
     group: {
       type: Object,
@@ -31,7 +31,7 @@ export default {
   },
   data () {
     return {
-      dataValue: this.value,
+      dataValue: null,
       color: 'var(--primary-color-light)',
       trackColor: 'var(--text-color-dark)',
       thumbColor: 'var(--primary-color-light)'
@@ -40,7 +40,13 @@ export default {
   watch: {
     dataValue (newValue) {
       this.$emit('input', newValue)
+    },
+    value (newValue) {
+      this.dataValue = newValue
     }
+  },
+  mounted () {
+    this.dataValue = this.value
   },
   methods: {
     onInput (event) {
