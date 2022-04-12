@@ -155,13 +155,12 @@ export default {
   text-align: center;
   align-items: center;
   justify-content: space-evenly;
-  padding: 1em;
 }
 .filters {
-  width: 25%;
+  width: 30%;
 }
 .results {
-  width: 75%;
+  width: 70%;
 }
 @media (max-width: 1200px) {
   .main-content {
