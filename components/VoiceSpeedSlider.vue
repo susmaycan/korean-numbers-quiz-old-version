@@ -27,10 +27,11 @@ export default {
 
 <style scoped>
 .voice-speed-slider {
+  min-width: 500px;
   display: flex;
   justify-content: center;
 }
 .voice-speed-content {
-  width: 50%;
+  width: 100%;
 }
 </style>

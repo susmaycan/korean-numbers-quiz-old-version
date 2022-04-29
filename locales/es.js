@@ -38,6 +38,6 @@ export default {
   dates: 'fechas',
   numbers: 'números',
   language: 'idioma',
-  date_warning: 'Recuerda que las fechas deben tener este formato 01/01/2020 y no este 1/1/2020. Para las horas es lo mismo, deben ser 01:02 en vez de 1:2. Recuerda también poner la zona horaria (PM o AM) para las horas.',
+  date_warning: 'Recuerda que las fechas deben tener este formato 01/01/2020 y no este 1/1/2020.',
   hour_warning: 'Recuerda que las horas deben tener el formato 01:02 PM en vez de 1:2 PM. Recuerda también poner la zona horaria (PM o AM).'
 }

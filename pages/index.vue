@@ -1,6 +1,10 @@
 <template>
   <div>
     <quiz-type-selector />
+    <div class="quiz-configuration">
+      <voice-speed-slider />
+      <show-results-toggle />
+    </div>
     <div class="main-content">
       <separator v-if="isMobileScreenSize" />
       <div class="filters">
@@ -9,21 +13,12 @@
       <separator v-if="isMobileScreenSize" />
       <div class="results">
         <results />
+        <div class="button-list">
+          <custom-button :disabled="showResults" @click="onCheckResults">
+            {{ $t('check_results') | capitalize }} <fa icon="check" />
+          </custom-button>
+        </div>
       </div>
-    </div>
-    <div v-if="list.length > 0" class="button-list">
-      <custom-button :disabled="showResults" @click="onCheckResults">
-        {{ $t('check_results') | capitalize }} <fa icon="check" />
-      </custom-button>
-      <custom-button @click="clearResults">
-        {{ $t('clear_results') | capitalize }} <fa icon="broom" />
-      </custom-button>
-      <custom-button v-if="!showResults" @click="toggleShowResults">
-        {{ $t('reveal_results') | capitalize }} <fa icon="eye" />
-      </custom-button>
-      <custom-button v-if="showResults" @click="toggleShowResults">
-        {{ $t('hide_results') | capitalize }} <fa icon="eye-slash" />
-      </custom-button>
     </div>
     <alert :show="displayWarningMessage">
       <p v-if="isDateDateQuizType">
@@ -102,9 +97,6 @@ export default {
       this.resetQuiz()
       this.generateQuiz()
       this.displayWarningMessage = false
-    },
-    clearResults () {
-      this.clearUserResults()
     },
     generateQuiz () {
       if (this.isNumberQuizType) {
@@ -188,6 +180,11 @@ export default {
 }
 .results {
   width: 70%;
+}
+.quiz-configuration {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 @media (max-width: 1200px) {
   .main-content {

@@ -6,14 +6,7 @@
         <Nuxt />
       </box>
     </v-main>
-    <v-footer padless>
-      <div
-        class="footer white--text text-center"
-      >
-        <fa icon="copyright" /> {{ new Date().getFullYear() }} - {{ $t('footer_text') }}
-        <a target="_blank" href="https://susmaycan.dev"><fa icon="arrow-up-right-from-square" /></a>
-      </div>
-    </v-footer>
+    <custom-footer />
   </v-app>
 </template>
 
@@ -48,12 +41,6 @@ html {
   font-size: var(--font-size-text);
   font-weight: var(--font-weight-normal);
   overflow-x: none;
-}
-
-.footer {
-  background-color: var(--primary-color);
-  padding: 2em;
-  width: 100%;
 }
 
 a {

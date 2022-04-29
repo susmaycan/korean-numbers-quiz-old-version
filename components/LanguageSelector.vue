@@ -1,13 +1,15 @@
 
 <template>
-  <v-select
-    v-model="selectedLanguage"
-    :items="languages"
-    :label="$t('language') | capitalize"
-    outlined
-    item-text="name"
-    item-value="code"
-  />
+  <div class="language-selector">
+    <v-select
+      v-model="selectedLanguage"
+      :items="languages"
+      :label="$t('language') | capitalize"
+      outlined
+      item-text="name"
+      item-value="code"
+    />
+  </div>
 </template>
 
 <script>
@@ -37,6 +39,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+.language-selector {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0 auto;
+}
 </style>

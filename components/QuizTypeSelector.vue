@@ -1,7 +1,6 @@
 <template>
   <div>
     <radio-button-group :value="quizType" :group="quizTypes" @change="onChange" />
-    <voice-speed-slider />
   </div>
 </template>
 

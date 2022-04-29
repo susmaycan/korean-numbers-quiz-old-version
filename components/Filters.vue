@@ -41,6 +41,9 @@
       <custom-button @click="generateNewQuiz">
         {{ $t('generate_quiz') | capitalize }}  <fa icon="bolt" />
       </custom-button>
+      <custom-button @click="clearUserResults">
+        {{ $t('clear_results') | capitalize }} <fa icon="broom" />
+      </custom-button>
     </div>
   </container>
 </template>
