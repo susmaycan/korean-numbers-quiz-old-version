@@ -1,14 +1,18 @@
 <template>
   <div>
     <quiz-type-selector />
-    <div class="quiz-configuration">
+    <div v-if="!isMobileScreenSize" class="quiz-configuration">
       <voice-speed-slider />
       <show-results-toggle />
     </div>
     <div class="main-content">
-      <separator v-if="isMobileScreenSize" />
       <div class="filters">
         <filters @applyFilters="restartQuiz" />
+      </div>
+      <separator v-if="isMobileScreenSize" />
+      <div v-if="isMobileScreenSize" class="quiz-configuration">
+        <voice-speed-slider />
+        <show-results-toggle />
       </div>
       <separator v-if="isMobileScreenSize" />
       <div class="results">
@@ -199,6 +203,12 @@ export default {
   }
   .results {
     width: 100%;
+  }
+  .quiz-configuration {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
 </style>

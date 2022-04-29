@@ -42,8 +42,7 @@ export default {
 
 @media (max-width: 756px) {
   .box-container {
-    padding: 0;
-    padding-top: 2em;
+    padding: 2em 0;
     margin: .5em;
   }
 }
