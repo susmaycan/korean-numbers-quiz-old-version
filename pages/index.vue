@@ -205,6 +205,7 @@ export default {
     width: 100%;
   }
   .quiz-configuration {
+    padding: 1em 0;
     width: 100%;
     display: flex;
     flex-direction: column;
