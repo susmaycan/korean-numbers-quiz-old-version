@@ -1,11 +1,11 @@
-import { DATE_QUIZZ_TYPES } from '@/utils/constants'
+import { DATE_QUIZ_TYPES } from '@/utils/constants'
 
 export const state = () => ({
-  dateQuizzType: DATE_QUIZZ_TYPES.DATE
+  dateQuizType: DATE_QUIZ_TYPES.DATE
 })
 
 export const mutations = {
-  setDateQuizzType (state, quizzType) {
-    state.dateQuizzType = quizzType
+  setDateQuizType (state, quizType) {
+    state.dateQuizType = quizType
   }
 }

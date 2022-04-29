@@ -8,7 +8,7 @@
         :class="radioButtonClass(element)"
         @click="onClick(element)"
       >
-        {{ element | capitalize }}
+        {{ $t(element) | capitalize }}
       </button>
     </div>
     <hr class="radio-separator">

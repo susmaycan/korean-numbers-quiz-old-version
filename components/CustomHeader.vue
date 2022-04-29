@@ -1,6 +1,7 @@
 <template>
   <div class="header-container">
     <div class="sheet-button-container">
+      <language-selector />
       <custom-button
         @click="showSheets"
       >
@@ -39,5 +40,8 @@ export default {
 }
 .sheet-button-container {
   align-self: flex-end;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 </style>

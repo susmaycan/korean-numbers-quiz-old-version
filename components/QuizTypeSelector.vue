@@ -1,17 +1,17 @@
 <template>
   <div>
-    <radio-button-group :value="quizzType" :group="quizzTypes" @change="onChange" />
+    <radio-button-group :value="quizType" :group="quizTypes" @change="onChange" />
     <voice-speed-slider />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'QuizzTypeSelector',
+  name: 'QuizTypeSelector',
   methods: {
     onChange (newValue) {
       this.selectedType = newValue
-      this.setQuizzType(newValue)
+      this.setQuizType(newValue)
     }
   }
 }

@@ -1,11 +1,11 @@
 import { mapState, mapMutations } from 'vuex'
-import { DATE_QUIZZ_TYPES, QUIZZ_SKILL_TYPE, QUIZZ_TYPE } from '@/utils/constants'
+import { DATE_QUIZ_TYPES, QUIZ_SKILL_TYPE, QUIZ_TYPE } from '@/utils/constants'
 
 export default {
   data () {
     return {
       isMobileScreenSize: false,
-      quizzTypes: QUIZZ_TYPE
+      quizTypes: QUIZ_TYPE
     }
   },
   mounted () {
@@ -13,8 +13,8 @@ export default {
     window.addEventListener('resize', this.onResize, { passive: true })
   },
   methods: {
-    ...mapMutations(['setLoading', 'setQuizzType', 'setVoiceSpeed', 'toggleShowResults', 'addNumber', 'resetQuizz', 'updateResult', 'toggleShowResults', 'clearUserResults', 'setQuizzSkillType', 'setElementCount']),
-    ...mapMutations('dates', ['setDateQuizzType']),
+    ...mapMutations(['setLoading', 'setQuizType', 'setVoiceSpeed', 'toggleShowResults', 'addNumber', 'resetQuiz', 'updateResult', 'toggleShowResults', 'clearUserResults', 'setQuizSkillType', 'setElementCount']),
+    ...mapMutations('dates', ['setDateQuizType']),
     ...mapMutations('numbers', ['setNumberType']),
     onResize () {
       this.isMobileScreenSize = window.innerWidth < 1200
@@ -26,30 +26,36 @@ export default {
       return Math.floor(Math.random() * (maxVal - minVal) + minVal)
     },
     generateRandomDate (start, end) {
-      return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+      const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+      const noTimeDate = new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+      )
+      return noTimeDate
     }
   },
   computed: {
-    ...mapState('dates', ['dateQuizzType']),
+    ...mapState('dates', ['dateQuizType']),
     ...mapState('numbers', ['numberType']),
-    ...mapState(['loadingResults', 'quizzType', 'voiceSpeed', 'list', 'userResults', 'showResults', 'quizzSkillType', 'elementCount']),
-    isWrittenQuizzType () {
-      return this.quizzSkillType === QUIZZ_SKILL_TYPE.WRITTEN
+    ...mapState(['loadingResults', 'quizType', 'voiceSpeed', 'list', 'userResults', 'showResults', 'quizSkillType', 'elementCount']),
+    isWrittenQuizType () {
+      return this.quizSkillType === QUIZ_SKILL_TYPE.WRITTEN
     },
-    isListeningQuizzType () {
-      return this.quizzSkillType === QUIZZ_SKILL_TYPE.LISTENING
+    isListeningQuizType () {
+      return this.quizSkillType === QUIZ_SKILL_TYPE.LISTENING
     },
-    isNumberQuizzType () {
-      return this.quizzType === QUIZZ_TYPE.NUMBERS
+    isNumberQuizType () {
+      return this.quizType === QUIZ_TYPE.NUMBERS
     },
-    isDateQuizzType () {
-      return this.quizzType === QUIZZ_TYPE.DATES
+    isDateQuizType () {
+      return this.quizType === QUIZ_TYPE.DATES
     },
-    isTimeDateQuizzType () {
-      return this.dateQuizzType === DATE_QUIZZ_TYPES.TIME
+    isTimeDateQuizType () {
+      return this.dateQuizType === DATE_QUIZ_TYPES.TIME
     },
-    isDateDateQuizzType () {
-      return this.dateQuizzType === DATE_QUIZZ_TYPES.TIME
+    isDateDateQuizType () {
+      return this.dateQuizType === DATE_QUIZ_TYPES.DATE
     }
   }
 }

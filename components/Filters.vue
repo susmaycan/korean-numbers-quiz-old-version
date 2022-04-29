@@ -2,15 +2,15 @@
   <container>
     <div class="filter-container">
       <div class="filter-element">
-        <label class="filter-label" for="number_quizz_type">{{ $t('quizz_type') | capitalize }}:</label>
+        <label class="filter-label" for="number_quiz_type">{{ $t('quiz_type') | capitalize }}:</label>
         <radio-input-group
-          id="number_quizz_type"
+          id="number_quiz_type"
           :group="skillTypes"
-          :value="quizzSkillType"
-          @input="onQuizzSkillTypeChanges"
+          :value="quizSkillType"
+          @input="onQuizSkillTypeChanges"
         />
       </div>
-      <div v-if="isNumberQuizzType">
+      <div v-if="isNumberQuizType">
         <div class="filter-element">
           <label class="filter-label" for="number_type">{{ $t('number_type') | capitalize }}:</label>
           <radio-input-group
@@ -21,64 +21,64 @@
           />
         </div>
         <div class="filter-element">
-          <max-input @generate-quizz="generateNewQuizz()" />
+          <max-input @generate-quiz="generateNewQuiz()" />
         </div>
       </div>
-      <div v-else-if="isDateQuizzType">
+      <div v-else-if="isDateQuizType">
         <div class="filter-element">
-          <label class="filter-label" for="date_quizz_type">{{ $t('date_quizz_type') | capitalize }}:</label>
+          <label class="filter-label" for="date_quiz_type">{{ $t('date_quiz_type') | capitalize }}:</label>
           <radio-input-group
-            id="date_quizz_type"
-            :group="dateQuizzTypes"
-            :value="dateQuizzType"
-            @input="onDateQuizzTypeChanges"
+            id="date_quiz_type"
+            :group="dateQuizTypes"
+            :value="dateQuizType"
+            @input="onDateQuizTypeChanges"
           />
         </div>
       </div>
       <div class="filter-element">
-        <element-count-input @generate-quizz="generateNewQuizz()" />
+        <element-count-input @generate-quiz="generateNewQuiz()" />
       </div>
-      <custom-button @click="generateNewQuizz">
-        {{ $t('generate_quizz') | capitalize }}  <fa icon="bolt" />
+      <custom-button @click="generateNewQuiz">
+        {{ $t('generate_quiz') | capitalize }}  <fa icon="bolt" />
       </custom-button>
     </div>
   </container>
 </template>
 
 <script>
-import { NUMBER_TYPES, QUIZZ_SKILL_TYPE, DATE_QUIZZ_TYPES } from '@/utils/constants'
+import { NUMBER_TYPES, QUIZ_SKILL_TYPE, DATE_QUIZ_TYPES } from '@/utils/constants'
 
 export default {
   data () {
     return {
       numberTypes: NUMBER_TYPES,
-      skillTypes: QUIZZ_SKILL_TYPE,
-      dateQuizzTypes: DATE_QUIZZ_TYPES
+      skillTypes: QUIZ_SKILL_TYPE,
+      dateQuizTypes: DATE_QUIZ_TYPES
     }
   },
   methods: {
-    generateNewQuizz () {
+    generateNewQuiz () {
       this.$emit('applyFilters')
     },
     onNumberTypeChanges (newValue) {
       if (newValue) {
         this.setNumberType(newValue)
         if (!this.errorMessage) {
-          this.generateNewQuizz()
+          this.generateNewQuiz()
         }
       }
     },
-    onQuizzSkillTypeChanges (newValue) {
-      this.setQuizzSkillType(newValue)
+    onQuizSkillTypeChanges (newValue) {
+      this.setQuizSkillType(newValue)
       if (!this.errorMessage) {
-        this.generateNewQuizz()
+        this.generateNewQuiz()
       }
     },
-    onDateQuizzTypeChanges (newValue) {
+    onDateQuizTypeChanges (newValue) {
       if (newValue) {
-        this.setDateQuizzType(newValue)
+        this.setDateQuizType(newValue)
         if (!this.errorMessage) {
-          this.generateNewQuizz()
+          this.generateNewQuiz()
         }
       }
     }

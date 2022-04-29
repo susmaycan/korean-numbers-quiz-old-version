@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Korean Numbers Quizz',
+    title: 'Korean Numbers Quiz',
     htmlAttrs: {
       lang: 'en'
     },
@@ -53,11 +53,10 @@ export default {
 
   i18n: {
     locales: [
-      { code: 'EUes', name: 'Español (ES)', file: 'es.js' },
-      { code: 'EUen', name: 'English (UK)', file: 'en.js' },
-      { code: 'KRko', name: '한국어', file: 'kr.js' }
+      { code: 'es', name: 'Español', file: 'es.js' },
+      { code: 'en', name: 'English', file: 'en.js' }
     ],
-    defaultLocale: 'EUes',
+    defaultLocale: 'en',
     langDir: '~/locales/',
     skipSettingLocaleOnNavigate: true,
     strategy: 'no_prefix'

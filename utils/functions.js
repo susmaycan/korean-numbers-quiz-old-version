@@ -14,7 +14,7 @@ function reverseString (str) {
   return str.split('').reverse().join('')
 }
 
-export const getKoreanNumber = (number) => {
+export const getKoreanNumber = (number, hour) => {
   if (!number || number === 0 || number > 99) { return '-' }
 
   const reversedNumber = reverseString(number.toString())
@@ -23,7 +23,7 @@ export const getKoreanNumber = (number) => {
   let output = ''
 
   // First we set the units
-  output = KOREAN_NUMBERS.units[units]
+  output = hour ? KOREAN_NUMBERS.units_time[units] : KOREAN_NUMBERS.units[units]
 
   // Then we set the tens
   if (tens) {

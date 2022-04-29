@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     isLengthValid () {
-      return this.selectedElementCount > 1 && this.selectedElementCount <= 20
+      return this.selectedElementCount > 0 && this.selectedElementCount <= 20
     },
     isDataValid () {
       if (!this.selectedElementCount || !this.isLengthValid) {
@@ -58,19 +58,19 @@ export default {
     elementCount (newValue) {
       if (this.selectedElementCount !== newValue) {
         this.selectedElementCount = newValue
-        this.generateNewQuizz()
+        this.generateNewQuiz()
       }
     }
   },
   methods: {
-    generateNewQuizz () {
-      this.$emit('generate-quizz')
+    generateNewQuiz () {
+      this.$emit('generate-quiz')
     },
     onElementCountChanges (newValue) {
       this.selectedElementCount = parseInt(newValue)
       if (!this.errorMessage) {
         this.setElementCount(this.selectedElementCount)
-        this.generateNewQuizz()
+        this.generateNewQuiz()
       }
     }
   }

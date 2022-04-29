@@ -68,19 +68,19 @@ export default {
     max (newValue) {
       if (this.selectedMax !== newValue) {
         this.selectedMax = newValue
-        this.generateNewQuizz()
+        this.generateNewQuiz()
       }
     }
   },
   methods: {
-    generateNewQuizz () {
-      this.$emit('generate-quizz')
+    generateNewQuiz () {
+      this.$emit('generate-quiz')
     },
     onMaxChanges (newValue) {
       this.selectedMax = parseInt(newValue)
       if (!this.errorMessage) {
         this.$store.commit('numbers/setMax', this.selectedMax)
-        this.generateNewQuizz()
+        this.generateNewQuiz()
       }
     }
   }

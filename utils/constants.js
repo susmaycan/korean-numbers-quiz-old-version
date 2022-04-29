@@ -66,6 +66,18 @@ export const KOREAN_NUMBERS = {
     8: '여덟',
     9: '아홉'
   },
+  units_time: {
+    0: '',
+    1: '한',
+    2: '두',
+    3: '세',
+    4: '네',
+    5: '다섯',
+    6: '여섯',
+    7: '일곱',
+    8: '여덟',
+    9: '아홉'
+  },
   tens: {
     1: '열',
     2: '스물',
@@ -100,40 +112,50 @@ export const CHINESE_NUMBERS = {
   6: '백'
 }
 
-export const QUIZZ_SKILL_TYPE = {
+export const QUIZ_SKILL_TYPE = {
   WRITTEN: 'written',
   LISTENING: 'listening'
 }
 
-export const QUIZZ_TYPE = {
+export const QUIZ_TYPE = {
   NUMBERS: 'numbers',
   DATES: 'dates'
 }
 
-export const DATE_QUIZZ_TYPES = {
+export const DATE_QUIZ_TYPES = {
   DATE: 'date',
   TIME: 'time'
 }
 
+export const TIME_PERIOD = {
+  1: 'AM',
+  2: 'PM'
+}
+
+export const TIME_PERIOD_KOREAN = {
+  1: '오전',
+  2: '오후'
+}
+
 export const ROW_PLACEHOLDER = {
-  [QUIZZ_TYPE.DATES]: {
-    [DATE_QUIZZ_TYPES.DATE]: {
-      [QUIZZ_SKILL_TYPE.LISTENING]: '02/05/2000',
-      [QUIZZ_SKILL_TYPE.WRITTEN]: '이천년 오월 이일'
+  [QUIZ_TYPE.DATES]: {
+    [DATE_QUIZ_TYPES.DATE]: {
+      [QUIZ_SKILL_TYPE.LISTENING]: '02/05/2000',
+      [QUIZ_SKILL_TYPE.WRITTEN]: '이천년 오월 이일'
     },
-    [DATE_QUIZZ_TYPES.TIME]: {
-      [QUIZZ_SKILL_TYPE.LISTENING]: '05:10',
-      [QUIZZ_SKILL_TYPE.WRITTEN]: '다섯시 십분'
+    [DATE_QUIZ_TYPES.TIME]: {
+      [QUIZ_SKILL_TYPE.LISTENING]: '05:10 PM',
+      [QUIZ_SKILL_TYPE.WRITTEN]: '오후 다섯시 십분'
     }
   },
-  [QUIZZ_TYPE.NUMBERS]: {
+  [QUIZ_TYPE.NUMBERS]: {
     [NUMBER_TYPES.CHINESE]: {
-      [QUIZZ_SKILL_TYPE.LISTENING]: '10300',
-      [QUIZZ_SKILL_TYPE.WRITTEN]: '일만 삼백'
+      [QUIZ_SKILL_TYPE.LISTENING]: '10300',
+      [QUIZ_SKILL_TYPE.WRITTEN]: '일만 삼백'
     },
     [NUMBER_TYPES.KOREAN]: {
-      [QUIZZ_SKILL_TYPE.LISTENING]: '10',
-      [QUIZZ_SKILL_TYPE.WRITTEN]: '열'
+      [QUIZ_SKILL_TYPE.LISTENING]: '10',
+      [QUIZ_SKILL_TYPE.WRITTEN]: '열'
     }
   }
 

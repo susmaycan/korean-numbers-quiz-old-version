@@ -1,9 +1,9 @@
-import { QUIZZ_TYPE, QUIZZ_SKILL_TYPE } from '@/utils/constants'
+import { QUIZ_TYPE, QUIZ_SKILL_TYPE } from '@/utils/constants'
 
 export const state = () => ({
   loadingResults: false,
-  quizzType: QUIZZ_TYPE.NUMBERS,
-  quizzSkillType: QUIZZ_SKILL_TYPE.WRITTEN,
+  quizType: QUIZ_TYPE.NUMBERS,
+  quizSkillType: QUIZ_SKILL_TYPE.WRITTEN,
   voiceSpeed: 0.7,
   list: [],
   userResults: [],
@@ -15,8 +15,8 @@ export const mutations = {
   setLoading (state, loading) {
     state.loadingResults = loading
   },
-  setQuizzType (state, quizzType) {
-    state.quizzType = quizzType
+  setQuizType (state, quizType) {
+    state.quizType = quizType
   },
   setVoiceSpeed (state, voiceSpeed) {
     state.voiceSpeed = voiceSpeed
@@ -36,7 +36,7 @@ export const mutations = {
       state.userResults.splice(index, 1, payload)
     }
   },
-  resetQuizz (state) {
+  resetQuiz (state) {
     state.list = []
     state.userResults = []
     state.showResults = false
@@ -48,8 +48,8 @@ export const mutations = {
     state.showResults = false
     state.userResults = state.userResults.map(number => ({ ...number, userInput: null, error: false, success: false }))
   },
-  setQuizzSkillType (state, quizzSkillType) {
-    state.quizzSkillType = quizzSkillType
+  setQuizSkillType (state, quizSkillType) {
+    state.quizSkillType = quizSkillType
   },
   setElementCount (state, count) {
     state.elementCount = count

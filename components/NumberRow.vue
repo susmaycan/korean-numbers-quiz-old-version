@@ -1,10 +1,10 @@
 <template>
   <div class="number-row-container">
     <div class="number-row-content">
-      <span v-if="isWrittenQuizzType" class="number-row-label">
+      <span v-if="isWrittenQuizType" class="number-row-label">
         {{ number.number }}
       </span>
-      <fa :class="isWrittenQuizzType ? 'icon icon-written' : 'icon'" icon="volume-high" @click="speak" />
+      <fa :class="isWrittenQuizType ? 'icon icon-written' : 'icon'" icon="volume-high" @click="speak" />
       <custom-input
         :value="inputData"
         :type="inputType"
@@ -43,17 +43,17 @@ export default {
       return this.userResults.find(item => item.number === this.number.number)
     },
     placeholder () {
-      if (this.isNumberQuizzType) {
-        return ROW_PLACEHOLDER[this.quizzType][this.numberType][this.quizzSkillType]
+      if (this.isNumberQuizType) {
+        return ROW_PLACEHOLDER[this.quizType][this.numberType][this.quizSkillType]
       } else {
-        return ROW_PLACEHOLDER[this.quizzType][this.dateQuizzType][this.quizzSkillType]
+        return ROW_PLACEHOLDER[this.quizType][this.dateQuizType][this.quizSkillType]
       }
     },
     inputType () {
-      return this.isNumberQuizzType && this.isListeningQuizzType ? 'number' : 'test'
+      return this.isNumberQuizType && this.isListeningQuizType ? 'number' : 'test'
     },
     messageInfo () {
-      return this.isWrittenQuizzType ? this.number.result : this.number.number.toString()
+      return this.isWrittenQuizType ? this.number.result : this.number.number.toString()
     }
   },
   updated () {
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     onChangeNumber (value) {
-      this.inputData = this.isListeningQuizzType && this.isNumberQuizzType ? parseInt(value) : value
+      this.inputData = this.isListeningQuizType && this.isNumberQuizType ? parseInt(value) : value
       this.updateResult({ ...this.userResult, userInput: this.inputData })
     },
     speak () {
@@ -73,7 +73,7 @@ export default {
       this.synth.speak(this.numberSpeech)
     },
     onFocus () {
-      if (this.isListeningQuizzType) {
+      if (this.isListeningQuizType) {
         this.speak()
       }
     }

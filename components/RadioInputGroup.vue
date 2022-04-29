@@ -7,7 +7,7 @@
       <v-radio
         v-for="element in group"
         :key="element"
-        :label="element | capitalize"
+        :label="$t(element) | capitalize"
         :value="element"
         :color="color"
         class="radio-input-label"
