@@ -6,7 +6,7 @@
 * Support listening and writting quizzes.
 
 
-## Build Setup
+## 🔧 Build Setup
 
 ```bash
 # install dependencies
