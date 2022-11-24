@@ -1,4 +1,11 @@
-# Korean Numbers Quizz
+# Korean Numbers Quizz 🇰🇷
+
+Webapp to learn/practice Korean numbers. 
+💻 Features:
+* Support two languages: English and Spanish.
+* Support Native Korean numbers and Chinese numbers.
+* Support listening and writting quizzes.
+
 
 ## Build Setup
 
