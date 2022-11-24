@@ -1,9 +1,10 @@
 # Korean Numbers Quizz 🇰🇷
 
-👩‍🏫 Webapp to learn/practice Korean numbers. 
+👩‍🏫 Webapp to learn/practice Korean numbers and dates. 
 * Support two languages: English and Spanish.
 * Support Native Korean numbers and Chinese numbers.
 * Support listening and writting quizzes.
+* NEW! Support date quizzes now.
 
 
 ## 🔧 Build Setup
