@@ -1,4 +1,6 @@
-# Korean Numbers Quizz 🇰🇷
+# Korean Numbers Quiz 🇰🇷
+
+This project was built with Nuxt 2, to see  the Nuxt 3 version go [here](https://github.com/susmaycan/korean-numbers-quiz).
 
 👩‍🏫 Webapp to learn/practice Korean numbers and dates. 
 * Support two languages: English and Spanish.
